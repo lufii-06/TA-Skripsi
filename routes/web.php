@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,5 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('/pofilesiswa', [RegisterController::class, 'profile'])->name('profile.create');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

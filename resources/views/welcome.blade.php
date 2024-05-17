@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Hoshi Hikari</title>
 
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -46,24 +46,115 @@
         .text-justify {
             text-align: justify;
         }
-    </style>
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
         @media (max-width: 575.98px) {
             .custom-mt-sm {
                 margin-top: 24px !important;
             }
         }
+
+        .position-relative img {
+            transition: filter 0.3s ease-in-out;
+        }
+
+        .position-relative:hover img {
+            filter: brightness(70%);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .position-relative:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .overlay-content {
+            text-align: center;
+        }
+
+        .row.d-flex.overflow-auto::-webkit-scrollbar-track {
+            background-color: #888;
+            /* Warna thumb scrollbar */
+            border-radius: 6px;
+            /* Radius border thumb scrollbar */
+        }
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .dark-mode .navbar,
+        .dark-mode .card {
+            color: #ffffff;
+        }
+
+        .mode-toggle-btn {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+
+            transform: translateY(-50%);
+
+            z-index: 9999;
+
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 50px;
+            background-color: #333;
+            color: #fff;
+            border: 2px solid #fff;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+
+        .mode-toggle-btn:hover {
+            background-color: #fff;
+            color: #333;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .dark-mode .mode-toggle-btn {
+            background-color: #fff;
+            color: #333;
+            border-color: #333;
+        }
+
+        .dark-mode .mode-toggle-btn:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .ajakan {
+            transition: background-color 0.3s;
+        }
+
+        .item:hover {
+            color: black;
+        }
     </style>
+
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
-<body class="" style="font-family: 'Montserrat', sans-serif;">
+<body class="" data-bs-theme="dark" style="font-family: 'Montserrat', sans-serif;">
     <div class="jumbotron">
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand text-white" href="#"><b class="fs-3">星光</b></a>
+                <a class="navbar-brand text-white" href="#"><b class="fs-3 item">星光</b></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -71,34 +162,25 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mx-auto mb-2 mb-lg-0 ">
                         <li class="nav-item mx-2">
-                            <a class="nav-link active fs-4 text-white" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active fs-4 text-white" aria-current="page" href="#home"><div class="item">Home</div></a>
                         </li>
                         <li class="nav-item mx-2 fs-4 ">
-                            <a class="nav-link text-white" href="#">About</a>
+                            <a class="nav-link text-white" href="#about"><div class="item">About</div></a>
                         </li>
                     </ul>
                     <span class="navbar-text">
-                        <div class="dropdown">
-                            <a class="dropdown-toggle text-white" href="#" role="button" id="dropdownMenuButton"
-                                style="text-decoration: none;" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="icon-account" style="font-size: 1rem"><i
-                                        class="fas fa-user"></i>&nbsp;Akun</span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#"></a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item text-danger bolder" href="#">Logout</a></li>
-                            </ul>
-                        </div>
+                        <a style="text-decoration: none;" href="{{ route('login') }}" class="text-white">
+                            <span class="icon-account fs-4 item" style="font-size: 1rem"><i class="fas fa-user"></i>&nbsp;Log
+                                in</span>
+                        </a>
                     </span>
                 </div>
             </div>
         </nav>
         <div class="d-flex flex-column mb-3" style="height:25rem">
+            <button id="darkModeToggle" class="btn btn-dark mode-toggle-btn" onclick="dark()">🌙</button>
             <div class="mx-auto my-auto" data-aos="zoom-in-up" data-aos-duration="1000" data-aos-mirror="true">
+                <h5 class="text-white text-center fs-1">いらっしゃいませ</h5>
                 <h5 class="text-white text-center fs-4" style="font-family: 'Montserrat', sans-serif;">Selamat Datang
                 </h5>
                 <h1 class="text-white text-center tulisan" style="font-family: 'Montserrat', sans-serif;"><b>Hoshi
@@ -107,16 +189,17 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="home">
         <div class="d-flex justify-content-between flex-column flex-lg-row">
             <div class="">
-                <img src="{{ asset('images/background.png') }}" alt="" class="gambar" data-aos="fade-up-right"
-                    data-aos-mirror="true" data-aos-delay="500" data-aos-duration="3000">
+                <img src="{{ asset('images/background.png') }}" alt="" class="gambar mt-5"
+                    data-aos="fade-up-right" style="border-radius: 50px" data-aos-mirror="true" data-aos-delay="500"
+                    data-aos-duration="3000">
             </div>
             <div class="d-flex align-items-center">
                 <h5 class="ms-5">
                     <div class="fs-1 text-danger"><b>言語と文化</b></div>
-                    <div class="fs-4">{{ 'Bahasa & Budaya' }}</div>
+                    <div class="fs-4 fw-bold">{{ 'Bahasa & Budaya' }}</div>
                     <div class="fs-5 mt-3 text-body-secondary text-justify">
                         "Bahasa dan Budaya" mencerminkan hubungan erat antara cara kita berkomunikasi dan kehidupan
                         budaya
@@ -124,7 +207,7 @@
                         tradisi masyarakat. Gabungan keduanya menekankan pentingnya bahasa dalam memelihara keberagaman
                         budaya yang kaya. <br>
                     </div>
-                    <button class="btn btn-outline-danger mt-3">Daftar Sekarang</button>
+                    <a href="{{ route('register') }}" class="btn btn-outline-danger mt-3">Daftar Sekarang</a>
                 </h5>
             </div>
         </div>
@@ -132,7 +215,7 @@
             <div class="d-flex align-items-center">
                 <h5 class="me-5 ms-5 mt-sm-4 custom-mt-sm">
                     <div class="fs-1 text-danger"><b>日本語学校</b></div>
-                    <div class="fs-4">{{ 'Sekolah Bahasa Jepang' }}</div>
+                    <div class="fs-4 fw-bold">{{ 'Sekolah Bahasa Jepang' }}</div>
                     <div class="fs-5 mt-3 text-body-secondary text-justify">
                         Sekolah bahasa Jepang mengajarkan bahasa dan budaya Jepang kepada non-penutur asli, mencakup
                         keterampilan berbahasa dan pengetahuan budaya. Programnya bervariasi, termasuk persiapan ujian
@@ -144,62 +227,132 @@
             </div>
             <div class="">
                 <img src="{{ asset('images/background2.png') }}" alt="" class="gambar1" data-aos="zoom-in-left"
-                    data-aos-mirror="true" data-aos-duration="3000">
+                    style="border-radius: 50px" data-aos-mirror="true" data-aos-duration="3000">
             </div>
         </div>
     </div>
-    <div class="container-fluid mt-5 py-4" style="background-color: salmon">
+    <div id="ajakanContainer" class="container-fluid mt-5 py-4 ajakan">
         <div class="container fs-4 text-justify">
             "新しい言葉を学ぶたびに、理解する文を理解するたびに、夢に一歩近づきます。どんな努力も無駄ではありません。情熱と喜びを持って学び続けてください。君ならできる！" <br>
             "Setiap kata baru yang kamu pelajari, setiap kalimat yang kamu pahami, membawa kamu lebih dekat pada
             impianmu.
             Ingatlah, tidak ada usaha yang sia-sia. Teruslah belajar dengan semangat dan keceriaan. Kimi nara dekiru!"
-            <div class="text-center mt-5 fw-bold">Menurut Mereka</div>
-            <div class="row mt-3">
-                <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
-                    <div class="card">
-                        {{-- <img src="..." class="card-img-top" alt="..."> --}}
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <span class="icon-account" style="font-size: 1rem"><i
-                                        class="fas fa-user"></i>&nbsp;</span>Asep
-                            </h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk of the card's content.</p>
+        </div>
+    </div>
+    <div class="container" id="about">
+        <div class="text-center mt-5 fs-2 fw-bold">Menurut Mereka</div>
+        <div class="row mt-3 bg-danger-rgb">
+            <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="icon-account" style="font-size: 1rem"><i
+                                    class="fas fa-user"></i>&nbsp;</span>Asep
+                        </h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the
+                            bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="icon-account" style="font-size: 1rem"><i
+                                    class="fas fa-user"></i>&nbsp;</span>Agus
+                        </h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the
+                            bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 mx-auto mx-md-0 my-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="icon-account" style="font-size: 1rem"><i
+                                    class="fas fa-user"></i>&nbsp;</span>Rahmat
+                        </h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the
+                            bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h5 class="text-center my-5 fw-bold fs-2">Bidang Pekerjaan</h5>
+        <div class="row d-flex overflow-auto pb-2">
+            <div class="d-flex">
+                <div class="mx-2 me-2 position-relative" data-aos="flip-left" data-aos-mirror="true"
+                    data-aos-delay="100">
+                    <img class="img-fluid" src="{{ asset('images/industri.jpg') }}"
+                        style="max-width: 20rem; height: 12rem" alt="">
+                    <div class="image-overlay position-absolute top-0 start-0 w-100 h-100 d-none">
+                        <div class="overlay-content text-center text-white">
+                            <p>Industri</p>
+                            {{-- <button class="btn btn-primary">Tombol 1</button> --}}
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
-                    <div class="card">
-                        {{-- <img src="..." class="card-img-top" alt="..."> --}}
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <span class="icon-account" style="font-size: 1rem"><i
-                                        class="fas fa-user"></i>&nbsp;</span>Agus
-                            </h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk of the card's content.</p>
+                <div class="mx-2 me-2 position-relative" data-aos="flip-left" data-aos-mirror="true"
+                    data-aos-delay="500">
+                    <img class="img-fluid" src="{{ asset('images/konstruksi.png') }}"
+                        style="max-width: 20rem; height: 12rem" alt="">
+                    <div class="image-overlay position-absolute top-0 start-0 w-100 h-100 d-none">
+                        <div class="overlay-content text-center text-white">
+                            <p>Konstruksi</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 col-lg-4 mx-auto mx-md-0 my-2">
-                    <div class="card">
-                        {{-- <img src="..." class="card-img-top" alt="..."> --}}
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <span class="icon-account" style="font-size: 1rem"><i
-                                        class="fas fa-user"></i>&nbsp;</span>Rahmat
-                            </h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk of the card's content.</p>
+                <div class="mx-2 me-2 position-relative" data-aos="flip-left" data-aos-mirror="true"
+                    data-aos-delay="900">
+                    <img class="img-fluid" src="{{ asset('images/perawat.png') }}"
+                        style="max-width: 20rem; height: 12rem" alt="">
+                    <div class="image-overlay position-absolute top-0 start-0 w-100 h-100 d-none">
+                        <div class="overlay-content text-center text-white">
+                            <p>Perawat <br> Lansia</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mx-2 me-2 position-relative" data-aos="flip-left" data-aos-mirror="true"
+                    data-aos-delay="1300">
+                    <img class="img-fluid" src="{{ asset('images/pertanian.jpg') }}"
+                        style="max-width: 20rem; height: 12rem" alt="">
+                    <div class="image-overlay position-absolute top-0 start-0 w-100 h-100 d-none">
+                        <div class="overlay-content text-center text-white">
+                            <p>Pertanian</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mx-2 me-2 position-relative" data-aos="flip-left" data-aos-mirror="true"
+                    data-aos-delay="1700">
+                    <img class="img-fluid" src="{{ asset('images/restoran.jpg') }}"
+                        style="max-width: 20rem;height: 12rem" alt="">
+                    <div class="image-overlay position-absolute top-0 start-0 w-100 h-100 d-none">
+                        <div class="overlay-content text-center text-white">
+                            <p>Restoran</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row mt-5">
+            <div class="col-sm-12 col-lg-6 d-flex justify-content-center">
+                <img class="mb-4" src="{{ asset('images/background3.png') }}" style="height: 17.7rem"
+                    alt="">
+            </div>
+            <div class="col-sm-12 col-lg-6 fs-5 text-justify d-flex align-items-center ">
+                "Ayo!! bergabunglah dengan LPK kami untuk pelatihan keterampilan terbaik dan persiapan karier yang
+                mantap.
+                Dengan fasilitas lengkap, pengajar berpengalaman, dan dukungan penuh, kami siap memandu Anda menuju
+                sukses dalam dunia kerja. Temukan potensi Anda bersama kami dan mulailah perjalanan menuju masa depan
+                yang cerah!"
+            </div>
+        </div>
+    </div>
     </div>
 
-    <footer class="bg-dark text-white py-4 mt-5">
+    <footer class="bg-dark text-white py-4 mt-5" style="border-top: 2px solid white;">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -212,17 +365,20 @@
                 <div class="col-md-3">
                     <h5 class="mb-4">Tautan</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Home</a></li>
-                        <li><a href="#" class="text-white">About</a></li>
-                        <li><a href="#" class="text-white">Daftar</a></li>
+                        <li><a href="#home" class="text-white" style="text-decoration: none">Home</a></li>
+                        <li><a href="#about" class="text-white" style="text-decoration: none">About</a></li>
+                        <li><a href="#" class="text-white" style="text-decoration: none">Daftar</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
                     <h5 class="mb-4">Ikuti Kami</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white"><i class="fab fa-facebook"></i> Facebook</a></li>
-                        <li><a href="#" class="text-white"><i class="fab fa-tiktok"></i> Tiktok</a></li>
-                        <li><a href="#" class="text-white"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#" class="text-white" style="text-decoration: none"><i
+                                    class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#" class="text-white" style="text-decoration: none"><i
+                                    class="fab fa-tiktok"></i> Tiktok</a></li>
+                        <li><a href="#" class="text-white" style="text-decoration: none"><i
+                                    class="fab fa-instagram"></i> Instagram</a></li>
                     </ul>
                 </div>
             </div>
@@ -233,7 +389,39 @@
         </div>
     </footer>
 
+    <script>
+        document.querySelectorAll('.position-relative').forEach(function(element) {
+            element.addEventListener('mouseenter', function() {
+                element.querySelector('.image-overlay').classList.remove('d-none');
+            });
+        });
 
+        document.addEventListener('DOMContentLoaded', function() {
+            var element = document.body;
+            if (element.dataset.bsTheme) {
+                element.dataset.bsTheme = "light";
+            }
+            const ajakanContainer = document.getElementById('ajakanContainer');
+            ajakanContainer.style.backgroundColor = element.dataset.bsTheme === "dark" ? '#333' : 'salmon';
+        });
+        function dark() {
+            var element = document.body;
+            element.dataset.bsTheme = element.dataset.bsTheme == "light" ? "dark" : "light";
+
+            var darkModeToggle = document.getElementById('darkModeToggle');
+            if (element.dataset.bsTheme === "dark") {
+                darkModeToggle.classList.remove('btn-dark');
+                darkModeToggle.classList.add('btn-light');
+                darkModeToggle.innerText = "☀️";
+            } else {
+                darkModeToggle.classList.remove('btn-light');
+                darkModeToggle.classList.add('btn-dark');
+                darkModeToggle.innerText = "🌙";
+            }
+            const ajakanContainer = document.getElementById('ajakanContainer');
+            ajakanContainer.style.backgroundColor = element.dataset.bsTheme === "dark" ? '#333' : 'salmon';
+        }
+    </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
