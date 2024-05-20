@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use auth;
 use App\Models\User;
+use App\Models\DetailUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -30,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/profilesiswa';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -77,14 +79,43 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function profile()
+    public function reset(Request $request)
     {
-        // $user = auth::user();
-        // return response(view("profile.create", compact("user")));
-        return response(view("profile.create"));
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        $user = User::where('email', $request->email)->with('DetailUser')->first();
+        if ($user && $user->status == '0') {
+            return redirect()->route('password.edit', ['id' => Crypt::encrypt($user->id)]);
+        } else {
+            if ($user && $user->detailuser->nohp == $request->nohp) {
+                return redirect()->route('password.edit', ['id' => Crypt::encrypt($user->id)]);
+            } else {
+                return redirect()->back()->withInput()->with(['message' => 'E-Mail atau Nohp tidak ditemukan']);
+            }
+        }
     }
 
-    public function store(Request $request){
-        dd($request);
+    public function edit($id)
+    {
+        $userId = Crypt::decrypt($id);
+        return view('auth.passwords.reset')->with('userId', $userId);
+    }
+
+    public function update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => ['required', 'string', 'min:5', 'confirmed'],
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $user = User::findOrFail($request->id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return redirect()->route('login')->with('message', 'Berhasil Update Password');
     }
 }

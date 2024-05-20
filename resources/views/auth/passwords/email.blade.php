@@ -52,14 +52,24 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('password.email') }}">
+                        @if (session('message'))
+                            <div class="d-flex justify-content-center">
+                                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                    <i class="fa fa-exclamation-circle me-2"></i>
+                                    {{ session('message') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('password.reset') }}">
                             @csrf
                             <div class="row mb-3">
                                 <h3 class="text-primary text-center mb-5"><i class="fa fa-user-edit me-2"></i>Reset
                                     Password</h3>
+
                                 <label for="email"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
                                 <div class="col-md-6">
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
@@ -71,8 +81,21 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
+                                <div class="my-2"></div>
+                                <label for="nohp"
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Nohp') }}</label>
+                                <div class="col-md-6">
+                                    <input id="nohp" type="text"
+                                        class="form-control @error('nohp') is-invalid @enderror" name="nohp"
+                                        value="{{ old('nohp') }}" autocomplete="nohp" autofocus>
 
+                                    @error('nohp')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">

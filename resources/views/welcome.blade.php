@@ -4,9 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Hoshi Hikari</title>
-
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome CSS -->
@@ -15,6 +13,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
     <style>
+        html,
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
         .dropdown-toggle::after {
             display: none !important;
             content: none !important;
@@ -142,7 +145,23 @@
         }
 
         .item:hover {
-            color: black;
+            color: #EB1616;
+        }
+
+        .btn-outline-custom {
+            color: #EB1616;
+            background-color: transparent;
+            border: 1px solid #EB1616;
+            /* padding: 10px 20px; */
+            border-radius: 1rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+            cursor: pointer;
+        }
+
+        .btn-outline-custom:hover {
+            color: #fff;
+            background-color: #EB1616;
+            border-color: #EB1616;
         }
     </style>
 
@@ -162,17 +181,35 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mx-auto mb-2 mb-lg-0 ">
                         <li class="nav-item mx-2">
-                            <a class="nav-link active fs-4 text-white" aria-current="page" href="#home"><div class="item">Home</div></a>
+                            <a class="nav-link active fs-4 text-white" aria-current="page" href="#home">
+                                <div class="item">Home</div>
+                            </a>
                         </li>
                         <li class="nav-item mx-2 fs-4 ">
-                            <a class="nav-link text-white" href="#about"><div class="item">About</div></a>
+                            <a class="nav-link text-white" href="#about">
+                                <div class="item">About</div>
+                            </a>
                         </li>
                     </ul>
                     <span class="navbar-text">
-                        <a style="text-decoration: none;" href="{{ route('login') }}" class="text-white">
-                            <span class="icon-account fs-4 item" style="font-size: 1rem"><i class="fas fa-user"></i>&nbsp;Log
-                                in</span>
-                        </a>
+                        @guest
+                            <a style="text-decoration: none;" href="{{ route('login') }}" class="text-white">
+                                <span class="icon-account fs-4 item" style="font-size: 1rem"><i
+                                        class="fas fa-user"></i>&nbsp;Log
+                                    in</span>
+                            </a>
+                        @else
+                            <a class=" text-white" style="text-decoration: none;" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                <div class="item fs-4">
+                                    Log Out
+                                </div>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        @endguest
+
                     </span>
                 </div>
             </div>
@@ -198,41 +235,44 @@
             </div>
             <div class="d-flex align-items-center">
                 <h5 class="ms-5">
-                    <div class="fs-1 text-danger"><b>言語と文化</b></div>
+                    <div class="fs-1 " style="color: #EB1616"><b>言語と文化</b></div>
                     <div class="fs-4 fw-bold">{{ 'Bahasa & Budaya' }}</div>
-                    <div class="fs-5 mt-3 text-body-secondary text-justify">
+                    <div class="fs-5 mt-3 mb-4 text-body-secondary text-justify">
                         "Bahasa dan Budaya" mencerminkan hubungan erat antara cara kita berkomunikasi dan kehidupan
                         budaya
                         kita. "Bahasa" adalah alat komunikasi yang penting, sementara "budaya" mencakup nilai-nilai dan
                         tradisi masyarakat. Gabungan keduanya menekankan pentingnya bahasa dalam memelihara keberagaman
-                        budaya yang kaya. <br>
+                        budaya yang kaya.
                     </div>
-                    <a href="{{ route('register') }}" class="btn btn-outline-danger mt-3">Daftar Sekarang</a>
+                    <a href="{{ route('register') }}" class="px-2 py-2 btn-outline-custom"
+                        style="text-decoration: none">Daftar Sekarang</a>
                 </h5>
             </div>
         </div>
         <div class="d-flex justify-content-between flex-column flex-lg-row">
             <div class="d-flex align-items-center">
                 <h5 class="me-5 ms-5 mt-sm-4 custom-mt-sm">
-                    <div class="fs-1 text-danger"><b>日本語学校</b></div>
+                    <div class="fs-1 " style="color: #EB1616"><b>日本語学校</b></div>
                     <div class="fs-4 fw-bold">{{ 'Sekolah Bahasa Jepang' }}</div>
-                    <div class="fs-5 mt-3 text-body-secondary text-justify">
+                    <div class="fs-5 mt-3 text-body-secondary text-justify mb-4">
                         Sekolah bahasa Jepang mengajarkan bahasa dan budaya Jepang kepada non-penutur asli, mencakup
                         keterampilan berbahasa dan pengetahuan budaya. Programnya bervariasi, termasuk persiapan ujian
                         JLPT
                         serta studi dan kerja di Jepang. <br>
                     </div>
-                    <button class="btn btn-outline-danger mt-3">Jadwal Belajar</button>
+                    <a href="" class="btn-outline-custom px-2 py-2" style="text-decoration: none">Jadwal
+                        Belajar</a>
                 </h5>
             </div>
             <div class="">
-                <img src="{{ asset('images/background2.png') }}" alt="" class="gambar1" data-aos="zoom-in-left"
-                    style="border-radius: 50px" data-aos-mirror="true" data-aos-duration="3000">
+                <img src="{{ asset('images/background2.png') }}" alt="" class="gambar1"
+                    data-aos="zoom-in-left" style="border-radius: 50px" data-aos-mirror="true"
+                    data-aos-duration="3000">
             </div>
         </div>
     </div>
     <div id="ajakanContainer" class="container-fluid mt-5 py-4 ajakan">
-        <div class="container fs-4 text-justify">
+        <div class="container fs-4 text-justify text-white" style="font-family: 'Montserrat', sans-serif;">
             "新しい言葉を学ぶたびに、理解する文を理解するたびに、夢に一歩近づきます。どんな努力も無駄ではありません。情熱と喜びを持って学び続けてください。君ならできる！" <br>
             "Setiap kata baru yang kamu pelajari, setiap kalimat yang kamu pahami, membawa kamu lebih dekat pada
             impianmu.
@@ -399,11 +439,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             var element = document.body;
             if (element.dataset.bsTheme) {
-                element.dataset.bsTheme = "light";
+                element.dataset.bsTheme = "dark";
             }
             const ajakanContainer = document.getElementById('ajakanContainer');
-            ajakanContainer.style.backgroundColor = element.dataset.bsTheme === "dark" ? '#333' : 'salmon';
+            ajakanContainer.style.backgroundColor = element.dataset.bsTheme === "dark" ? '#333' : '#EB1616';
         });
+
         function dark() {
             var element = document.body;
             element.dataset.bsTheme = element.dataset.bsTheme == "light" ? "dark" : "light";
@@ -419,7 +460,7 @@
                 darkModeToggle.innerText = "🌙";
             }
             const ajakanContainer = document.getElementById('ajakanContainer');
-            ajakanContainer.style.backgroundColor = element.dataset.bsTheme === "dark" ? '#333' : 'salmon';
+            ajakanContainer.style.backgroundColor = element.dataset.bsTheme === "dark" ? '#333' : '#EB1616';
         }
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

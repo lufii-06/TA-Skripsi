@@ -47,11 +47,23 @@
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+                        @if (session('message'))
+                            <div class="d-flex justify-content-center">
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <i class="fa fa-exclamation-circle me-2"></i>
+                                    {{ session('message') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            </div>
+                        @endif
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                                <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i></h3>
+                            <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i></h3>
                             <h3>Sign In</h3>
+
                         </div>
                         <form method="POST" action="{{ route('login') }}">
+                            @csrf
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
                                     id="floatingInput" name="email" value="{{ old('email') }}" required
@@ -83,7 +95,9 @@
                                 <a href="{{ route('password.request') }}">Forgot Password</a>
                             </div>
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
-                            <p class="text-center mb-0">Belum Punya Akun? <a href="{{ route('register') }}">Daftar</a>|<a href="{{ url('/') }}">Kembali</a></p>
+                            <p class="text-center mb-0">Belum Punya Akun? <a
+                                    href="{{ route('register') }}">Daftar</a>|<a
+                                    href="{{ url('/') }}">Kembali</a></p>
                         </form>
                     </div>
                 </div>

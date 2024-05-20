@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +17,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $user = Auth::user();
+    if($user){
+        return redirect()->route('home');
+    }
     return view('welcome');
 });
 
 Auth::routes();
-Route::get('/pofilesiswa', [RegisterController::class, 'profile'])->name('profile.create');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/storeprofile', [HomeController::class, 'store'])->name('profile.store');
+Route::post('/reset', [RegisterController::class, 'reset'])->name('password.reset');
+Route::get('/editpassword/{id}', [RegisterController::class, 'edit'])->name('password.edit');
+Route::post('/updatepassword', [RegisterController::class, 'update'])->name('password.update');
+Route::get('/home', [HomeController::class, 'home'])->name('home');

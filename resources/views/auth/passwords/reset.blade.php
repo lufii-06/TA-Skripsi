@@ -49,8 +49,32 @@
                     <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                         <div class="d-flex mb-3">
                             <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i></h3>
-                            <h5 class="ms-3 mt-2">Anda Wajib Mengisikan Profile</h5>
+                            <h5 class="ms-3 mt-2">Masukkan Password Baru anda</h5>
                         </div>
+                        <form action="{{ route('password.update') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="id" value='{{ $userId }}'>
+                            <div class="mb-3">
+                                <label for="password">Password</label>
+                                <input type="password"
+                                    class="form-control w-100 @error('password') is-invalid @enderror" id="password"
+                                    name="password" required autocomplete="new-password"
+                                    placeholder="Masukkan Password">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password-confirm">Confirm Password</label>
+                                <input type="password" class="form-control w-100" id="password-confirm"
+                                    name="password_confirmation" required autocomplete="new-password"
+                                    placeholder="Confirm Password">
+                            </div>
+                            <button class="btn btn-primary" type="submit">UBAH</button>
+                        </form>
                     </div>
                 </div>
             </div>
