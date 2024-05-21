@@ -20,6 +20,7 @@ class PengumumanIndex extends Component
     public function render()
     {
         $this->pesan = Pesan::orderBy('created_at', 'asc')->with('user')->get();
+        // dd($this->pesan);
         return view('livewire.pengumuman-index');
     }
 

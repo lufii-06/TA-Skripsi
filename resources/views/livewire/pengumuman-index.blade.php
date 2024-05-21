@@ -1,7 +1,7 @@
 <div>
     <div class="px-4 mt-5">
-        <div class="bg-secondary rounded overflow-auto pengumuman" style="max-height: 60vh">
-            <h4 class="sticky-top bg-secondary p-4 m-0">Papan Pengumuman</h4>
+        <h4 class="bg-secondary p-4 m-0">Papan Pengumuman</h4>
+        <div class="bg-secondary overflow-auto pengumuman" style="max-height: 60vh">
             <div class="chat-container fw-bold pe-4 px-4">
                 <div class="d-flex justify-content-end">
                     <div class="chat-message w-100">
@@ -11,11 +11,11 @@
                                     <p class="text-primary">
                                         @if ($user->status == '3')
                                             <a wire:click.prevent="deletepesan({{ $item->id }})" class="me-2"><i
-                                                    class="fa fa-trash"></i></a>
+                                                    class="fa fa-trash">&nbsp;Hapus</i></a>
                                         @endif
                                         Me
                                     </p>
-                                    <p class="text-white">
+                                    <a {{ $item->info ? "href=".route('pesan-detail',$item->info)."" : '' }} class="{{ $item->info ? 'text-primary' : 'text-white' }}">
                                         <small class="me-2 text-success">
                                             @php
                                                 $createdAt = \Carbon\Carbon::parse($item->created_at);
@@ -25,16 +25,16 @@
                                             @endphp
                                         </small>
                                         {{ $item->pesan }}
-                                    </p>
+                                    </a>
                                 </div>
                             @else
                                 <p class="text-primary">{{ ucfirst(explode(' ', $item->user->name)[0]) }}
                                     @if ($user->status == '3')
                                         <a wire:click.prevent="deletepesan({{ $item->id }})" class="ms-2"><i
-                                                class="fa fa-trash"></i></a>
+                                                class="fa fa-trash">&nbsp;Hapus</i></a>
                                     @endif
                                 </p>
-                                <p class="text-white">
+                                <a {{ $item->info ? "href=".route('pesan-detail',$item->info)."" : '' }}  class="text-white">
                                     {{ $item->pesan }}
                                     <small class="ms-2 text-success">
                                         @php
@@ -44,7 +44,7 @@
                                             echo $diff;
                                         @endphp
                                     </small>
-                                </p>
+                                </a>
                             @endif
                         @empty
                             <p class="text-muted">Admin atau Sensei Belum Mengumumkan Apapun</p>

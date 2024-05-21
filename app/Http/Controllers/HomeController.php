@@ -34,7 +34,7 @@ class HomeController extends Controller
         if ($user->status == '0') {
             return view("profile.create");
         } else {
-            return view('layouts.home',compact("user"));
+            return view('layouts.home', compact("user"));
         }
     }
     public function store(Request $request)
@@ -99,5 +99,18 @@ class HomeController extends Controller
         User::where('id', $user->id)->update(['status' => '1']);
 
         return redirect()->route('home');
+    }
+
+    public function detail($id)
+    {
+        $pisahkan = explode("-", $id);
+        $kode = $pisahkan[0];
+        $nokode = $pisahkan[1];
+        if ($kode == 'materi') {
+            return redirect()->route('materi-detail',$nokode);
+        } else {
+            // return redirect()->route();
+            dd($id);
+        }
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('materis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('level');
             $table->string('judul');
             $table->longText('isimateri');
             $table->timestamps();

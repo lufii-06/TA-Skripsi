@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->longText('pesan');
+            $table->string('info')->nullable();
             $table->timestamps();
         });
     }

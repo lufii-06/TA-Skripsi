@@ -11,7 +11,8 @@ class Pesan extends Model
 
     protected $fillable = [
         'user_id',
-        'pesan'
+        'pesan',
+        'info',
     ];
 
     public function User(){

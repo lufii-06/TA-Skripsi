@@ -417,8 +417,12 @@
                                     class="fab fa-facebook"></i> Facebook</a></li>
                         <li><a href="#" class="text-white" style="text-decoration: none"><i
                                     class="fab fa-tiktok"></i> Tiktok</a></li>
-                        <li><a href="#" class="text-white" style="text-decoration: none"><i
+                        <li><a href="https://www.instagram.com/lpkhoshi_hikariofficial?igsh=aGw4c2V3Z2QxeW1q"
+                                target="_blank" class="text-white" style="text-decoration: none"><i
                                     class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="https://kelembagaan.kemnaker.go.id/home/companies/d517b234-e261-4b3f-92ef-68cd0e33fb06/profiles"
+                                class="text-white" style="text-decoration: none"><i
+                                    class="fas fa-building"></i> kemnaker</a></li>
                     </ul>
                 </div>
             </div>

@@ -33,19 +33,27 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/dist/css/iziToast.min.css') }}">
+    <script src="{{ asset('assets/dist/js/iziToast.min.js') }}"></script>
     <style>
         .chat-message {
             border-radius: 10px;
             padding: 10px;
             margin-bottom: 10px;
         }
+
         .custom-font {
             font-family: 'Noto Sans JP', sans-serif;
-            font-size: 24px; /* Ubah ukuran font sesuai kebutuhan */
-            color: #ffffff; /* Warna teks putih */
-            font-weight: bold; /* Teks tebal */
-            padding-top: 5px; /* Jarak dari atas */
-            padding-left: 5px; /* Jarak dari kiri */
+            font-size: 24px;
+            /* Ubah ukuran font sesuai kebutuhan */
+            color: #ffffff;
+            /* Warna teks putih */
+            font-weight: bold;
+            /* Teks tebal */
+            padding-top: 5px;
+            /* Jarak dari atas */
+            padding-left: 5px;
+            /* Jarak dari kiri */
         }
     </style>
     @livewireStyles
@@ -86,14 +94,13 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout
                             </a>
                         </div>
                     </div>
                 </div>
-                
+
             </nav>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
@@ -114,7 +121,67 @@
         </div>
         <!-- Content End -->
     </div>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <script>
+                iziToast.error({
+                    title: '',
+                    position: 'topRight',
+                    message: '{{ $error }}',
+                });
+            </script>
+        @endforeach
+    @endif
+    @if (session()->get('success'))
+        <script>
+            iziToast.success({
+                title: '',
+                position: 'topRight',
+                message: '{{ session()->get('success') }}',
+            });
+        </script>
+    @endif
+
+    @if (session()->get('error'))
+        <script>
+            iziToast.error({
+                title: '',
+                position: 'topRight',
+                message: '{{ session()->get('error') }}',
+            });
+        </script>
+    @endif
     @livewireScripts
+    <script>
+        $(document).ready(function() {
+            const searchInput = $('#search');
+            const clearSearch = $('#clearSearch');
+            let formSubmitted = {{ request()->has('search') ? 'true' : 'false' }};
+            if (searchInput.val().trim().length > 0) {
+                clearSearch.show();
+            }
+            searchInput.on('input', function() {
+                if ($(this).val().trim().length > 0) {
+                    clearSearch.show();
+                } else {
+                    clearSearch.hide();
+                }
+            })
+            searchInput.keypress(function(e) {
+                if (e.which == 13) {
+                    e.preventDefault();
+                    $('#searchForm').submit();
+                }
+            });
+            clearSearch.click(function() {
+                searchInput.val('');
+                clearSearch.hide();
+                if (formSubmitted) {
+                    window.location.href = "{{ route('materi-search') }}";
+                }
+            });
+        });
+    </script>
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
