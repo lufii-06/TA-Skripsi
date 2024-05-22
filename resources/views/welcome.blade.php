@@ -9,10 +9,21 @@
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"rel="stylesheet">
     <!-- Font Awesome JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
     <style>
+        .navbar {
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar.bg-dark {
+            background-color: #343a40 !important;
+            /* Ganti dengan warna latar belakang navbar yang Anda inginkan */
+        }
+
+
         html,
         body {
             font-family: 'Montserrat', sans-serif;
@@ -171,7 +182,7 @@
 
 <body class="" data-bs-theme="dark" style="font-family: 'Montserrat', sans-serif;">
     <div class="jumbotron">
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container">
                 <a class="navbar-brand text-white" href="#"><b class="fs-3 item">星光</b></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -181,34 +192,34 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mx-auto mb-2 mb-lg-0 ">
                         <li class="nav-item mx-2">
-                            <a class="nav-link active fs-4 text-white" aria-current="page" href="#home">
+                            <a class="nav-link active text-white fs-5 fw-bold" aria-current="page" href="#home">
                                 <div class="item">Home</div>
                             </a>
                         </li>
-                        <li class="nav-item mx-2 fs-4 ">
-                            <a class="nav-link text-white" href="#about">
+                        <li class="nav-item mx-2 ">
+                            <a class="nav-link text-white fs-5 fw-bold" href="#about">
                                 <div class="item">About</div>
                             </a>
                         </li>
                     </ul>
                     <span class="navbar-text">
-                        @guest
-                            <a style="text-decoration: none;" href="{{ route('login') }}" class="text-white">
-                                <span class="icon-account fs-4 item" style="font-size: 1rem"><i
-                                        class="fas fa-user"></i>&nbsp;Log
-                                    in</span>
-                            </a>
-                        @else
+                        {{-- @guest --}}
+                        <a style="text-decoration: none;" href="{{ route('login') }}" class="text-white fs-5 fw-bold">
+                            <span class="icon-account item" style="font-size: 1rem"><i
+                                    class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp;Log
+                                in</span>
+                        </a>
+                        {{-- @else
                             <a class=" text-white" style="text-decoration: none;" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                <div class="item fs-4">
+                                <div class="item">
                                     Log Out
                                 </div>
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
-                        @endguest
+                        @endguest --}}
 
                     </span>
                 </div>
@@ -262,6 +273,8 @@
                     </div>
                     <a href="" class="btn-outline-custom px-2 py-2" style="text-decoration: none">Jadwal
                         Belajar</a>
+                    <a href="{{ route('sensei-create') }}" class="btn-outline-custom px-2 py-2"
+                        style="text-decoration: none">Daftar Sebagai Pengajar</a>
                 </h5>
             </div>
             <div class="">
@@ -421,8 +434,8 @@
                                 target="_blank" class="text-white" style="text-decoration: none"><i
                                     class="fab fa-instagram"></i> Instagram</a></li>
                         <li><a href="https://kelembagaan.kemnaker.go.id/home/companies/d517b234-e261-4b3f-92ef-68cd0e33fb06/profiles"
-                                class="text-white" style="text-decoration: none"><i
-                                    class="fas fa-building"></i> kemnaker</a></li>
+                                class="text-white" style="text-decoration: none"><i class="fas fa-building"></i>
+                                kemnaker</a></li>
                     </ul>
                 </div>
             </div>
@@ -434,6 +447,15 @@
     </footer>
 
     <script>
+        window.addEventListener('scroll', function() {
+            var navbar = document.querySelector('.navbar');
+            if (window.scrollY > 0) {
+                navbar.classList.add('bg-dark');
+            } else {
+                navbar.classList.remove('bg-dark');
+            }
+        });
+
         document.querySelectorAll('.position-relative').forEach(function(element) {
             element.addEventListener('mouseenter', function() {
                 element.querySelector('.image-overlay').classList.remove('d-none');

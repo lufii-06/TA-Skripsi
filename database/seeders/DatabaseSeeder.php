@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'name'=>'admin',
             'email'=>'admin@gmail.com',
             "password"=> bcrypt("password"),
-            'status'=>'3',
+            'status'=>'4',
         ]);
     }
 }

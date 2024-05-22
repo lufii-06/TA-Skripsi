@@ -37,6 +37,7 @@ return new class extends Migration
             $table->enum('gigiPalsu', ['ya', 'tidak'])->nullable();
             $table->text('soal1')->nullable();
             $table->text('soal2')->nullable();
+            $table->enum('levelkemampuan', ['N5','N4','N3','N2','N1'])->nullable();
             $table->timestamps();
         });
     }

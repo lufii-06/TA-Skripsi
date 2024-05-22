@@ -1,21 +1,21 @@
 @extends('layouts.sidebar')
 @section('content')
-    @if ($user->status == '3')
+    @if ($user->status == '4')
         <div class="container-fluid pt-4 px-4">
             <div class="row g-4">
                 <div class="col-sm-12 col-xl-6 d-flex flex-column">
                     <div class="bg-secondary rounded p-4 mb-4 d-flex">
-                        <i class="fa fa-chart-line fa-3x text-primary"></i>
+                        <i class="fa fa-users fa-3x text-primary"></i>
                         <div class="ms-3">
                             <p class="mb-2">Jumlah Siswa</p>
-                            <h6 class="mb-0">$1234</h6>
+                            <h6 class="mb-0">{{ $jmluser }}</h6>
                         </div>
-                    </div>
-                    <div class="bg-secondary rounded p-4 d-flex">
-                        <i class="fa fa-chart-line fa-3x text-primary"></i>
+                        </div>
+                        <div class="bg-secondary rounded p-4 d-flex">
+                        <i class="fa fa-user-tie fa-4x me-1 text-primary"></i>
                         <div class="ms-3">
-                            <p class="mb-2">Jumlah guru</p>
-                            <h6 class="mb-0">$1234</h6>
+                            <p class="mb-2">Jumlah Sensei</p>
+                            <h6 class="mb-0">{{ $jmlsensei }}</h6>
                         </div>
                     </div>
                 </div>

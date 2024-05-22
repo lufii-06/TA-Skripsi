@@ -9,7 +9,7 @@
                             @if ($item->user_id == $user->id)
                                 <div style="text-align: right">
                                     <p class="text-primary">
-                                        @if ($user->status == '3')
+                                        @if ($user->status == '4')
                                             <a wire:click.prevent="deletepesan({{ $item->id }})" class="me-2"><i
                                                     class="fa fa-trash">&nbsp;Hapus</i></a>
                                         @endif
@@ -29,7 +29,7 @@
                                 </div>
                             @else
                                 <p class="text-primary">{{ ucfirst(explode(' ', $item->user->name)[0]) }}
-                                    @if ($user->status == '3')
+                                    @if ($user->status == '4')
                                         <a wire:click.prevent="deletepesan({{ $item->id }})" class="ms-2"><i
                                                 class="fa fa-trash">&nbsp;Hapus</i></a>
                                     @endif
@@ -51,7 +51,7 @@
                         @endforelse
                     </div>
                 </div>
-                @if ($user->status == '3' or $user->status == '2')
+                @if ($user->status == '4' or $user->status == '3')
                     <form wire:submit.prevent="simpan">
                         @csrf
                         <div class="p-4 container d-flex">

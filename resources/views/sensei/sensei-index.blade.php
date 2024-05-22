@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <h1 class="mb-4">Data Sensei</h1>
-        <form action="{{ route('materi-search') }}" method="get" id="searchForm">
+        <form action="{{ route('sensei-search') }}" method="get" id="searchForm">
             <div class="form-floating">
                 <input type="text" class="form-control bg-secondary rounded-pill" style="width: 20rem" id="floatingInput"
                     name="search" id="search" value="{{ request('search') }}"
@@ -23,17 +23,34 @@
                             <th scope="col">Nohp</th>
                             <th scope="col">Usia</th>
                             <th scope="col">Level kemampuan</th>
+                            <th scope="col" >Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>jhon@email.com</td>
-                            <td>Member</td>
-                            <td>Sma</td>
-                        </tr>
+
+                        @forelse ($sensei as $item)
+                            <tr>
+                                <th>{{ $loop->iteration }}</th>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->email }}</td>
+                                <td>{{ $item->detailuser->nohp }}</td>
+                                <td>{{ $item->detailuser->usia }}</td>
+                                <td>{{ $item->detailuser->levelkemampuan }}</td>
+                                @if ($item->status == '2')
+                                    <td>
+                                        <a href="{{ route('sensei-terima', $item->id) }}"
+                                            class="btn btn-outline-success">Terima</a>
+                                        <a href="{{ route('sensei-tolak', $item->id) }}"
+                                            class="btn btn-outline-primary">Tolak</a>
+                                    </td>
+                                @endif
+
+                            </tr>
+                        @empty
+                            <tr>
+                                <td class="p-4" colspan="7">Sensei Tidak Ada</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

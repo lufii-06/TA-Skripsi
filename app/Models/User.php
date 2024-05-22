@@ -43,15 +43,40 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Pengumuman(){
-        return $this->hasMany(Pengumuman::class);
+    public function Pesan()
+    {
+        return $this->hasMany(Pesan::class);
     }
 
-    public function Materi(){
+    public function Materi()
+    {
         return $this->hasMany(Materi::class);
     }
 
-    public function DetailUser(){
+    public function DetailUser()
+    {
         return $this->hasOne(DetailUser::class);
+    }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%')
+                    ->orWhereHas('detailuser', function ($query) use ($search) {
+                        $query->where('alamat', 'LIKE', '%' . $search . '%')
+                            ->orWhere('tempat_lahir', 'like', '%' . $search . '%')
+                            ->orWhere('tanggal_lahir', 'like', '%' . $search . '%')
+                            ->orWhere('nohp', 'like', '%' . $search . '%')
+                            ->orWhere('tinggibadan', 'like', '%' . $search . '%')
+                            ->orWhere('beratbadan', 'like', '%' . $search . '%')
+                            ->orWhere('jurusan', 'like', '%' . $search . '%')
+                            ->orWhere('pendidikanterakhir', 'like', '%' . $search . '%')
+                            ->orWhere('levelkemampuan', 'like', '%' . $search . '%')
+                            ->orWhere('usia', 'like', '%' . $search . '%');
+                    });
+            });
+        });
     }
 }

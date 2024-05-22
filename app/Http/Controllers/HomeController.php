@@ -29,12 +29,17 @@ class HomeController extends Controller
         $user = Auth::user();
         //status 0 : siswa belum aktif
         //status 1 : siswa sudah aktif
-        //status 2 : guru
-        //status 3 : admin
+        //status 2 : guru belum aktif
+        //status 3 : guru sudah aktif
+        //status 4 : admin
         if ($user->status == '0') {
             return view("profile.create");
+        } elseif ($user->status == '2') {
+            return view('sensei.informasi',compact('user'));
         } else {
-            return view('layouts.home', compact("user"));
+            $jmluser = User::where('status','1')->count();
+            $jmlsensei = User::where('status','3')->count();
+            return view('layouts.home', compact("user","jmluser","jmlsensei"));
         }
     }
     public function store(Request $request)
@@ -107,7 +112,7 @@ class HomeController extends Controller
         $kode = $pisahkan[0];
         $nokode = $pisahkan[1];
         if ($kode == 'materi') {
-            return redirect()->route('materi-detail',$nokode);
+            return redirect()->route('materi-detail', $nokode);
         } else {
             // return redirect()->route();
             dd($id);

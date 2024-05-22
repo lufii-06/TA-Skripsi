@@ -111,8 +111,10 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary rounded-top p-4">
                     <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-sm-center">
                             &copy; <a href="#">Hoshi Hikari</a>, All Right Reserved.
+                            Designed By HTML Codex
+                            Distributed By: ThemeWagon
                         </div>
                     </div>
                 </div>

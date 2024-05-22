@@ -32,6 +32,7 @@ class DetailUser extends Model
         'gigiPalsu',
         'soal1',
         'soal2',
+        'levelkemampuan',
     ];
 
     public function User(){
