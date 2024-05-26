@@ -8,10 +8,9 @@
                 <input type="text" class="form-control bg-secondary rounded-pill" style="width: 20rem" id="floatingInput"
                     name="search" id="search" value="{{ request('search') }}"
                     placeholder="Cari Nama, alamat nohp siswa">
-                <label for="floatingInput">Cari Nama, alamat atau nohp siswa</label>
+                <label for="floatingInput">Cari data siswa</label>
             </div>
         </form>
-
         <div class="bg-secondary rounded h-100 p-4 mt-5">
             <div class="table-responsive">
                 <table class="table">
@@ -20,12 +19,14 @@
                             <th scope="col">No</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Alamat</th>
                             <th scope="col">Nohp</th>
-                            <th scope="col">Tempat, Tanggal Lahir</th>
+                            <th scope="col">Lahir</th>
                             <th scope="col">Usia</th>
                             <th scope="col">Tinggi Badan</th>
                             <th scope="col">Berat Badan</th>
                             <th scope="col">Pendidikan Terakhir</th>
+                            <th scope="col">Aksi</th>
 
                         </tr>
                     </thead>
@@ -35,21 +36,30 @@
                                 <th>{{ $loop->iteration }}</th>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
+                                <td>{{ $item->detailuser->alamat }}</td>
                                 <td>{{ $item->detailuser->nohp }}</td>
                                 <td>{{ $item->detailuser->tempat_lahir . ', ' . date('d F Y', strtotime($item->detailuser->tanggal_lahir)) }}</td>
                                 <td>{{ $item->detailuser->usia }}</td>
+                                <td>{{ $item->detailuser->tinggibadan }}&nbsp;cm</td>
+                                <td>{{ $item->detailuser->beratbadan }}&nbsp;kg</td>
                                 <td>{{ $item->detailuser->pendidikanterakhir }}</td>
-                                <td>{{ $item->detailuser->tinggibadan }}</td>
-                                <td>{{ $item->detailuser->beratbadan }}</td>
+                                <td class=" d-flex pb-5">
+                                    <a href="{{ route('siswa-hapus', $item->id) }}"
+                                        class="btn btn-outline-primary me-2">Hapus</a>
+                                    <a href="{{ route('siswa-lulus', $item->id) }}"
+                                        class="btn btn-outline-success">Lulus</a>
+                                </td>
                             </tr>
                         @empty
-                        <tr>
-                            <td class="p-4" colspan="9">Siswa Tidak Ada</td>
-                        </tr>
+                            <tr>
+                                <td class="p-4" colspan="11">Siswa Tidak Ada</td>
+                            </tr>
                         @endforelse
-
                     </tbody>
                 </table>
+                @if ($siswa)
+                    {{ $siswa->links() }}
+                @endif
             </div>
         </div>
     </div>

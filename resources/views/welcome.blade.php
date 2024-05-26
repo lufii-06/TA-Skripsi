@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scasmle=1">
     <title>Hoshi Hikari</title>
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@
         }
 
         .gambar1 {
-            height: 24rem;
+            height: 28rem;
         }
 
         .jumbotron {
@@ -203,24 +203,11 @@
                         </li>
                     </ul>
                     <span class="navbar-text">
-                        {{-- @guest --}}
                         <a style="text-decoration: none;" href="{{ route('login') }}" class="text-white fs-5 fw-bold">
                             <span class="icon-account item" style="font-size: 1rem"><i
                                     class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp;Log
                                 in</span>
                         </a>
-                        {{-- @else
-                            <a class=" text-white" style="text-decoration: none;" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                <div class="item">
-                                    Log Out
-                                </div>
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        @endguest --}}
-
                     </span>
                 </div>
             </div>
@@ -240,12 +227,12 @@
     <div class="container" id="home">
         <div class="d-flex justify-content-between flex-column flex-lg-row">
             <div class="">
-                <img src="{{ asset('images/background.png') }}" alt="" class="gambar mt-5"
+                <img src="{{ asset('images/background.png') }}" alt="" class="gambar mt-5 img-fluid"
                     data-aos="fade-up-right" style="border-radius: 50px" data-aos-mirror="true" data-aos-delay="500"
                     data-aos-duration="3000">
             </div>
             <div class="d-flex align-items-center">
-                <h5 class="ms-5">
+                <h5 class=" ms-5 custom-mt-sm">
                     <div class="fs-1 " style="color: #EB1616"><b>言語と文化</b></div>
                     <div class="fs-4 fw-bold">{{ 'Bahasa & Budaya' }}</div>
                     <div class="fs-5 mt-3 mb-4 text-body-secondary text-justify">
@@ -262,7 +249,7 @@
         </div>
         <div class="d-flex justify-content-between flex-column flex-lg-row">
             <div class="d-flex align-items-center">
-                <h5 class="me-5 ms-5 mt-sm-4 custom-mt-sm">
+                <h5 class="ms-5 mt-sm-4 custom-mt-sm">
                     <div class="fs-1 " style="color: #EB1616"><b>日本語学校</b></div>
                     <div class="fs-4 fw-bold">{{ 'Sekolah Bahasa Jepang' }}</div>
                     <div class="fs-5 mt-3 text-body-secondary text-justify mb-4">
@@ -271,16 +258,55 @@
                         JLPT
                         serta studi dan kerja di Jepang. <br>
                     </div>
-                    <a href="" class="btn-outline-custom px-2 py-2" style="text-decoration: none">Jadwal
-                        Belajar</a>
-                    <a href="{{ route('sensei-create') }}" class="btn-outline-custom px-2 py-2"
-                        style="text-decoration: none">Daftar Sebagai Pengajar</a>
+                    <div class="d-inline-flex flex-column">
+                        <a href="" class="btn-outline-custom px-2 py-2 mb-2 me-auto"
+                            style="text-decoration: none" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">Jadwal
+                            Belajar</a>
+                        <a href="{{ route('sensei-create') }}" class="btn-outline-custom px-2 py-2"
+                            style="text-decoration: none">Daftar Sebagai Pengajar</a>
+                    </div>
                 </h5>
             </div>
             <div class="">
-                <img src="{{ asset('images/background2.png') }}" alt="" class="gambar1"
+                <img src="{{ asset('images/background2.png') }}" alt="" class="ms-5 gambar1 img-fluid"
                     data-aos="zoom-in-left" style="border-radius: 50px" data-aos-mirror="true"
                     data-aos-duration="3000">
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Jadwal Belajar</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Hari</th>
+                                <th>Jam</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Senin - jumat</td>
+                                <td>08:00 - 10:00, 14:15 - 16:15</td>
+                            </tr>
+                            <tr>
+                                <td>Sabtu</td>
+                                <td>08:00 - 10:00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-outline-custom p-2" data-bs-dismiss="modal">Tutup</button>
+                </div>
             </div>
         </div>
     </div>
@@ -293,41 +319,43 @@
         </div>
     </div>
     <div class="container" id="about">
-        <div class="text-center mt-5 fs-2 fw-bold">Menurut Mereka</div>
+        <div class="text-center mt-5 fs-2 fw-bold">Program kami</div>
         <div class="row mt-3 bg-danger-rgb">
             <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 12rem">
                         <h5 class="card-title">
                             <span class="icon-account" style="font-size: 1rem"><i
-                                    class="fas fa-user"></i>&nbsp;</span>Asep
+                                    class="fas fa-book-open fs-3"></i>&nbsp;</span>Pelajaran Bahasa Jepang
                         </h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the
-                            bulk of the card's content.</p>
+                        <p class="card-text text-">program pelajaran bahasa Jepang yang mencakup kursus intensif
+                            untuk mempersiapkan peserta dengan kemampuan berkomunikasi di lingkungan profesional Jepang.
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 12rem">
                         <h5 class="card-title">
                             <span class="icon-account" style="font-size: 1rem"><i
-                                    class="fas fa-user"></i>&nbsp;</span>Agus
+                                    class="fas fa-user-nurse fs-3"></i>&nbsp;</span>Persiapan Calon Pekerja Jepang
                         </h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the
-                            bulk of the card's content.</p>
+                        <p class="card-text">program persiapan calon pekerja Jepang, termasuk pelatihan
+                            budaya dan etika kerja, simulasi lingkungan kerja.</p>
                     </div>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 mx-auto mx-md-0 my-2">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 12rem">
                         <h5 class="card-title">
                             <span class="icon-account" style="font-size: 1rem"><i
-                                    class="fas fa-user"></i>&nbsp;</span>Rahmat
+                                    class="fa-solid fa-certificate fs-3"></i>&nbsp;</span>Pelatihan SSW
                         </h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the
-                            bulk of the card's content.</p>
+                        <p class="card-text">Program pelatihan SSW dirancang untuk membantu peserta mengembangkan
+                            keterampilan berbahasa
+                            Jepang dalam suatu bidang pekerjaan.</p>
                     </div>
                 </div>
             </div>

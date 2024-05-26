@@ -7,6 +7,7 @@ use App\Models\DetailUser;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
@@ -31,15 +32,18 @@ class HomeController extends Controller
         //status 1 : siswa sudah aktif
         //status 2 : guru belum aktif
         //status 3 : guru sudah aktif
-        //status 4 : admin
+        $today = date('d-n-Y');
+        // Jika tanggal saat ini kurang dari 1 April, itu berarti kita berada di semester genap
+        $semesterType = ($today < '01-04-' . date('Y')) ? 'Genap' : 'Ganjil';
+        $semester = $semesterType . date(' Y');
         if ($user->status == '0') {
             return view("profile.create");
         } elseif ($user->status == '2') {
-            return view('sensei.informasi',compact('user'));
+            return view('sensei.informasi', compact('user'));
         } else {
-            $jmluser = User::where('status','1')->count();
-            $jmlsensei = User::where('status','3')->count();
-            return view('layouts.home', compact("user","jmluser","jmlsensei"));
+            $jmluser = User::where('status', '1')->count();
+            $jmlsensei = User::where('status', '3')->count();
+            return view('layouts.home', compact("user", "jmluser", "jmlsensei", "semester"));
         }
     }
     public function store(Request $request)
@@ -117,5 +121,30 @@ class HomeController extends Controller
             // return redirect()->route();
             dd($id);
         }
+    }
+
+    public function detailprofile()
+    {
+        $iduser = Auth::id();
+        $user = User::with('detailuser')->find($iduser);
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . 'vB0vX+pTsrNTXRRgK1HqzIlrYBDvf8LKiOqzvzaWQBpO4GpyRJgJwdgnakJAOu9o-luthfi',
+        ])->get('https://api.kirimwa.id/v1/devices');
+        if ($response->json()['data'][0]['status'] == "disconnected") {
+            $response1 = Http::withHeaders([
+                'Authorization' => 'Bearer ' . 'vB0vX+pTsrNTXRRgK1HqzIlrYBDvf8LKiOqzvzaWQBpO4GpyRJgJwdgnakJAOu9o-luthfi',
+            ])->get('https://api.kirimwa.id/v1/qr?device_id=admin');
+            $qr = $response1->json()['image_url'];
+            return view('profile.detail', compact('user', 'qr'));
+        }
+        
+        return view('profile.detail', compact('user'));
+
+    }
+
+    public function editprofile($id)
+    {
+        $user = User::with('detailuser')->find($id);
+        return view('profile.edit', compact('user'));
     }
 }

@@ -76,6 +76,35 @@ class SenseiController extends Controller
         ]);
         return redirect()->route('home')->with('Success', 'Tunggu informasi penerimaan dari pihak lpk ');
     }
+    public function update(Request $request,$id){
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'alamat' => ['required', 'string'],
+            'tempat_lahir' => ['required', 'string'],
+            'tanggal_lahir' => ['required', 'date'],
+            'usia' => ['required', 'integer'],
+            'nohp' => ['required', 'string'],
+            'levelkemampuan' => ['required', Rule::in(['N4', 'N3', 'N2', 'N1'])],
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        User::where('id',$id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        DetailUser::where('user_id',$id)->update([
+            'alamat' => $request->alamat,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'usia' => $request->usia,
+            'nohp' => $request->nohp,
+            'levelkemampuan' => $request->levelkemampuan,
+        ]);
+        return redirect()->route('profile-detail')->with('success','Berhasil mengupdate profil');
+    }
     public function terima($id)
     {
         $sensei = User::find($id);
@@ -87,6 +116,13 @@ class SenseiController extends Controller
         $sensei = User::find($id);
         $sensei->delete();
         return redirect()->back()->with('success', 'Menolak sensei');
+    }
+
+    public function berhenti($id)
+    {
+        $sensei = User::find($id);
+        $sensei->delete();
+        return redirect()->back()->with('success', 'Sensei telah berhenti mengajari di hoshi hikari');
     }
 
 }

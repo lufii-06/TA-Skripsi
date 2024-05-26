@@ -57,6 +57,21 @@ class User extends Authenticatable
     {
         return $this->hasOne(DetailUser::class);
     }
+    public function Jawaban()
+    {
+        return $this->hasMany(Jawaban::class);
+    }
+
+    public function Kuis()
+    {
+        return $this->hasMany(kuis::class);
+    }
+
+    public function Nilai()
+    {
+        return $this->hasMany(Nilai::class);
+    }
+
 
     public function scopeFilter($query, array $filters)
     {

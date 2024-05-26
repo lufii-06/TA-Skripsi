@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('materis', function (Blueprint $table) {
+        Schema::create('jawabans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('level');
-            $table->string('judul');
-            $table->longText('isimateri')->nullable();
-            $table->string('filemateri')->nullable();
+            $table->foreignId('soal_id')->references('id')->on('soals')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('jawabanbenar');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materis');
+        Schema::dropIfExists('jawabans');
     }
 };

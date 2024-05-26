@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'kirimwa' => [
+        'api_token' => env('API_TOKEN'),
+        'device_id' => env('DEVICE_ID'), // pastikan tambahkan juga DEVICE_ID jika digunakan
+    ],
+
 ];

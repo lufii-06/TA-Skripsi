@@ -13,7 +13,8 @@ class Materi extends Model
         'user_id',
         'level',
         'judul',
-        'isimateri'
+        'isimateri',
+        'filemateri'
     ];
 
     public function User(){

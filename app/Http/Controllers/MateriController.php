@@ -14,7 +14,7 @@ class MateriController extends Controller
     public function index()
     {
         $user = auth::user();
-        $materi = Materi::with('user')->get();
+        $materi = Materi::with('user')->paginate(5);
         return view('materi.materi-index', compact('user', 'materi'));
     }
 
@@ -37,7 +37,7 @@ class MateriController extends Controller
 
     public function search()
     {
-        $materi = Materi::latest()->filter(request(['search']))->get();
+        $materi = Materi::latest()->filter(request(['search']))->paginate(5);
         $user = Auth::user();
         return view('materi.materi-index', compact('user', 'materi'));
     }
@@ -48,11 +48,14 @@ class MateriController extends Controller
             'level' => 'required|in:n5,n4,n3,n2,n1',
             'judul' => 'required|string|max:255',
             'isimateri' => 'required|string',
+            'filemateri' => 'nullable|file|mimes:doc,docx,pdf|max:10240', // Validasi untuk filemateri
         ], [
             'level.required' => 'Level Materi harus diisi.',
             'level.in' => 'Anda Belum Memilih Level Materi',
             'judul.required' => 'Judul Materi harus diisi.',
             'isimateri.required' => 'Isi Materi harus diisi.',
+            'filemateri.mimes' => 'File Materi harus berupa file dengan format: doc, docx, atau pdf.',
+            'filemateri.max' => 'File Materi tidak boleh lebih dari 10MB.',
         ]);
 
         // Jika validasi gagal, kembali ke form dengan pesan kesalahan
@@ -73,13 +76,21 @@ class MateriController extends Controller
         $materi->level = $request->level;
         $materi->judul = $request->judul;
         $materi->isimateri = $request->isimateri;
-        $materi->save();
 
+        if ($request->hasFile('filemateri')) {
+            $file = $request->file('filemateri');
+            $fileName = $file->getClientOriginalName(); 
+            $path = $file->storeAs('materi_files', $fileName, 'public');
+            $materi->filemateri = $path; 
+        }
+        
+        $materi->save();
         Pesan::create([
             'user_id' => $user->id,
-            'pesan' => explode(' ', $user->name)[0] . ' Telah Mengupload Materi',
+            'pesan' => explode(' ', $user->name)[0] . ' Telah Mengupload Materi Baru' . ' Berjudul : ' . $materi->judul,
             'info' => 'materi-' . $materi->id
         ]);
-        return redirect()->route('materi')->with('success', 'Materi berhasil Upload.');
+
+        return redirect()->route('send.whatsapp');
     }
 }

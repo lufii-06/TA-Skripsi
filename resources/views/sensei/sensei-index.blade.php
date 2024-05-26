@@ -8,7 +8,7 @@
                 <input type="text" class="form-control bg-secondary rounded-pill" style="width: 20rem" id="floatingInput"
                     name="search" id="search" value="{{ request('search') }}"
                     placeholder="Cari Nama, alamat nohp sensei">
-                <label for="floatingInput">Cari Nama, alamat atau nohp sensei</label>
+                <label for="floatingInput">Cari data sensei</label>
             </div>
         </form>
 
@@ -23,7 +23,7 @@
                             <th scope="col">Nohp</th>
                             <th scope="col">Usia</th>
                             <th scope="col">Level kemampuan</th>
-                            <th scope="col" >Aksi</th>
+                            <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +43,11 @@
                                         <a href="{{ route('sensei-tolak', $item->id) }}"
                                             class="btn btn-outline-primary">Tolak</a>
                                     </td>
+                                @else
+                                    <td>
+                                        <a href="{{ route('sensei-berhenti', $item->id) }}"
+                                            class="btn btn-outline-primary">Berhentikan</a>
+                                    </td>
                                 @endif
 
                             </tr>
@@ -53,6 +58,9 @@
                         @endforelse
                     </tbody>
                 </table>
+                @if ($sensei)
+                    {{ $sensei->links() }}
+                @endif
             </div>
         </div>
     </div>

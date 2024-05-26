@@ -93,7 +93,7 @@
                             <span class="d-none d-lg-inline-flex"><i class="fa fa-user"></i></span>&nbsp; Akun
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">Profile</a>
+                            <a href="{{ route('profile-detail') }}" class="dropdown-item">Profile</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout
                             </a>

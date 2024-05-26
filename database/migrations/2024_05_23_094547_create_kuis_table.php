@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('materis', function (Blueprint $table) {
+        Schema::create('kuis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('level');
-            $table->string('judul');
-            $table->longText('isimateri')->nullable();
-            $table->string('filemateri')->nullable();
+            $table->enum('type', ['tango','bunpou','chokai','dokkai']);
+            $table->string('judulkuis');
+            $table->string('jumlahsoal');
+            $table->enum('status',['belum mulai','sedang mulai','telah selesai']);
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materis');
+        Schema::dropIfExists('kuis');
     }
 };

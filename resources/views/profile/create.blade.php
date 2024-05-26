@@ -100,6 +100,8 @@
                                                 {{ old('pendidikanterakhir') == 'SMP' ? 'selected' : '' }}>SMP</option>
                                             <option value="SMA"
                                                 {{ old('pendidikanterakhir') == 'SMA' ? 'selected' : '' }}>SMA</option>
+                                            <option value="SMA"
+                                                {{ old('pendidikanterakhir') == 'SMK' ? 'selected' : '' }}>SMK</option>
                                             <option value="D3"
                                                 {{ old('pendidikanterakhir') == 'D3' ? 'selected' : '' }}>Diploma (D3)
                                             </option>

@@ -21,15 +21,20 @@
         <h2>Daftar Materi</h2>
         <div style="max-height: 50vh" class=" overflow-auto">
             @forelse ($materi as $item)
-                <summary class="bg-secondary text-white p-2 d-flex flex-column">
+                <summary class="bg-secondary rounded text-white p-4 mb-2 d-flex flex-column">
                     <span class="text-success">Pengunggah : {{ ucfirst(explode(' ', $item->user->name)[0]) }}</span>
-                    <span class="text-muted">Level : {{ $item->level }}</span> 
+                    <span class="text-muted">Level : {{ $item->level }}</span>
                     <span>Judul : {{ $item->judul }}</span>
-                    <a href="{{ route('materi-detail',$item->id) }}" class="justify-content-end">Lihat</a>
+                    <a href="{{ route('materi-detail', $item->id) }}" class="justify-content-end">Lihat</a>
                 </summary>
             @empty
                 <h5 class="text-muted bg-secondary p-3 rounded">Sensei Belum Mengupload Materi</h5>
             @endforelse
+            @if ($materi)
+                <div class="mt-2">
+                    {{ $materi->links() }}
+                </div>
+            @endif
         </div>
     </div>
 @endsection
