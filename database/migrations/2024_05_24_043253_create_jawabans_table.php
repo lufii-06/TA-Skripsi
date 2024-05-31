@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('jawabans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('soal_id')->references('id')->on('soals')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('jawabanbenar');
+            $table->foreignId('kuis_id')->references('id')->on('kuis')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('status');
             $table->timestamps();
         });
     }

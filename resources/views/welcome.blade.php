@@ -42,16 +42,16 @@
             height: 28rem;
         }
 
-        .gambar1 {
+        /* .gambar1 {
             height: 28rem;
-        }
+        } */
 
         .jumbotron {
             height: 80vh;
             background-position: center;
             border-image: fill 0 linear-gradient(#0001, #000);
             background-size: cover;
-            position: relative;
+            position: relative; 
             overflow: hidden;
             background-image: url({{ asset('images/jumbotron.jpg') }});
 
@@ -226,8 +226,8 @@
 
     <div class="container" id="home">
         <div class="d-flex justify-content-between flex-column flex-lg-row">
-            <div class="">
-                <img src="{{ asset('images/background.png') }}" alt="" class="gambar mt-5 img-fluid"
+            <div class="overflow-hidden text-center">
+                <img src="{{ asset('images/background.png') }}" alt="" class="gambar mt-5 img-fluid w-75 w-lg-100"
                     data-aos="fade-up-right" style="border-radius: 50px" data-aos-mirror="true" data-aos-delay="500"
                     data-aos-duration="3000">
             </div>
@@ -268,8 +268,8 @@
                     </div>
                 </h5>
             </div>
-            <div class="">
-                <img src="{{ asset('images/background2.png') }}" alt="" class="ms-5 gambar1 img-fluid"
+            <div class="overflow-hidden">
+                <img src="{{ asset('images/background2.png') }}" alt="" class="ms-5 gambar1 img-fluid w-75 w-lg-100 mt-3"
                     data-aos="zoom-in-left" style="border-radius: 50px" data-aos-mirror="true"
                     data-aos-duration="3000">
             </div>
@@ -318,7 +318,8 @@
             Ingatlah, tidak ada usaha yang sia-sia. Teruslah belajar dengan semangat dan keceriaan. Kimi nara dekiru!"
         </div>
     </div>
-    <div class="container" id="about">
+    <div id="about" class=" pb-5"></div>
+    <div class="container">
         <div class="text-center mt-5 fs-2 fw-bold">Program kami</div>
         <div class="row mt-3 bg-danger-rgb">
             <div class="col-sm-12 col-md-6 col-lg-4 mx-auto my-2">
@@ -363,8 +364,8 @@
 
         <h5 class="text-center my-5 fw-bold fs-2">Bidang Pekerjaan</h5>
         <div class="row d-flex overflow-auto pb-2">
-            <div class="d-flex">
-                <div class="mx-2 me-2 position-relative" data-aos="flip-left" data-aos-mirror="true"
+            <div class="d-flex border">
+                <div class="mx-2 me-2 position-relative border" data-aos="flip-left" data-aos-mirror="true"
                     data-aos-delay="100">
                     <img class="img-fluid" src="{{ asset('images/industri.jpg') }}"
                         style="max-width: 20rem; height: 12rem" alt="">
@@ -448,20 +449,20 @@
                     <ul class="list-unstyled">
                         <li><a href="#home" class="text-white" style="text-decoration: none">Home</a></li>
                         <li><a href="#about" class="text-white" style="text-decoration: none">About</a></li>
-                        <li><a href="#" class="text-white" style="text-decoration: none">Daftar</a></li>
+                        <li><a href="{{ route('register') }}" class="text-white" style="text-decoration: none">Daftar</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
                     <h5 class="mb-4">Ikuti Kami</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white" style="text-decoration: none"><i
-                                    class="fab fa-facebook"></i> Facebook</a></li>
-                        <li><a href="#" class="text-white" style="text-decoration: none"><i
+                        {{-- <li><a href="#" class="text-white" style="text-decoration: none"><i
+                                    class="fab fa-facebook"></i> Facebook</a></li> --}}
+                        <li><a href="https://www.tiktok.com/@bonihikari?_t=8mfilQkjOm9&_r=1" class="text-white" style="text-decoration: none" target="_blank"><i
                                     class="fab fa-tiktok"></i> Tiktok</a></li>
                         <li><a href="https://www.instagram.com/lpkhoshi_hikariofficial?igsh=aGw4c2V3Z2QxeW1q"
                                 target="_blank" class="text-white" style="text-decoration: none"><i
                                     class="fab fa-instagram"></i> Instagram</a></li>
-                        <li><a href="https://kelembagaan.kemnaker.go.id/home/companies/d517b234-e261-4b3f-92ef-68cd0e33fb06/profiles"
+                        <li><a href="https://kelembagaan.kemnaker.go.id/home/companies/d517b234-e261-4b3f-92ef-68cd0e33fb06/profiles" target="_blank"
                                 class="text-white" style="text-decoration: none"><i class="fas fa-building"></i>
                                 kemnaker</a></li>
                     </ul>

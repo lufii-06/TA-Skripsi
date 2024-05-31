@@ -13,6 +13,7 @@ class PengumumanIndex extends Component
 
     public $pesan;
 
+
     public function mount()
     {
         $this->user = Auth::user();

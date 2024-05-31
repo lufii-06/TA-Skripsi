@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,14 +12,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('soals', function (Blueprint $table) {
+        Schema::create('persyaratans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kuis_id')->references('id')->on('kuis')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->longText('soal');
-            $table->string('jawabanbenar');
-            $table->string('jawabansatu');
-            $table->string('jawabandua');
-            $table->string('jawabantiga');
+            $table->foreignId('materi_id')->references('id')->on('materis')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('soals');
+        Schema::dropIfExists('persyaratans');
     }
 };

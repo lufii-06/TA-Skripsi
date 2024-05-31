@@ -11,8 +11,8 @@ class Jawaban extends Model
 
     protected $fillable = [
         'user_id',
-        'soal_id',
-        'jawabanbenar',
+        'kuis_id',
+        'status',
     ];
 
     public function User()
@@ -20,8 +20,13 @@ class Jawaban extends Model
         return $this->belongsTo(User::class, "user_id");
     }
 
-    public function Soal()
+    public function Kuis()
     {
-        return $this->belongsTo(Soal::class, "soal_id");
+        return $this->belongsTo(Kuis::class, "kuis_id");
+    }
+
+    public function DetailJawaban()
+    {
+        return $this->hasMany(DetailJawaban::class);
     }
 }

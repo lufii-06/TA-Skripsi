@@ -28,10 +28,18 @@
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="row">
+                <div class="mb-4">
+                    <label for="formFile" class="form-label">Masukan Materi Berupa word atau pdf (opsional)</label>
+                    <input class="form-control bg-dark" type="file" id="formFile" name="filemateri">
+                </div>
+                <textarea name="isimateri" class="form-control" id="editor" cols="30" rows="10">{{ old('isimateri') }}</textarea>
+                @error('isimateri')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                @enderror
+                {{-- <div class="row">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6">
                         <div class="form-floating ">
-                            <textarea class="form-control" placeholder="Isi Materi" id="floatingTextarea" style="height: 150px;" name="isimateri">{{ old('isimateri') }}</textarea>
+                            <textarea class="form-control" placeholder="Isi Materi" id="floatingTexeditortarea" style="height: 150px;" name="isimateri">{{ old('isimateri') }}</textarea>
                             <label for="floatingTextarea">Isi Materi</label>
                             @error('isimateri')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -42,7 +50,7 @@
                         <label for="formFile" class="form-label">Masukan Materi Berupa File (opsional)</label>
                         <input class="form-control bg-dark" type="file" id="formFile" name="filemateri">
                     </div>
-                </div>
+                </div> --}}
 
                 <button type="submit" class="btn btn-primary mt-3">Buat</button>
             </form>

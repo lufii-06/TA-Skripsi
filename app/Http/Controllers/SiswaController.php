@@ -22,7 +22,7 @@ class SiswaController extends Controller
     public function search()
     {
         $user = Auth::user();
-        $siswa = User::latest()->filter(request(['search']))->where('status', '1')->get();
+        $siswa = User::latest()->filter(request(['search']))->where('status', '1')->paginate(5);
         return view('siswa.siswa-index', compact('user', 'siswa'));
     }
 

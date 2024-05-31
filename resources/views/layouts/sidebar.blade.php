@@ -39,35 +39,26 @@
                     <a href=""
                         class="nav-item nav-link {{ Route::currentRouteName() == 'nilai' ? 'active' : '' }}"><i
                             class="fa fa-clipboard-list me-2"></i>nilai</a>
-                    <a href=""
-                        class="nav-item nav-link {{ Route::currentRouteName() == 'nilai' ? 'active' : '' }}"><i
-                            class="fa fa-clipboard-list me-2"></i>Absensi</a>
                 @elseif($user->status == '3')
                     <a href="{{ route('materi') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'materi' ? 'active' : '' }}"><i
                             class="fa fa-book me-2"></i>Materi</a>
-                    <a href=""
+                    <a href="{{ route('kuis-index') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'kuis' ? 'active' : '' }}"><i
                             class="fa fa-star me-2"></i>Kuis</a>
                     <a href=""
                         class="nav-item nav-link {{ Route::currentRouteName() == 'nilai' ? 'active' : '' }}"><i
                             class="fa fa-clipboard-list me-2"></i>nilai</a>
-                    <a href=""
-                        class="nav-item nav-link {{ Route::currentRouteName() == 'nilai' ? 'active' : '' }}"><i
-                            class="fa fa-clipboard-list me-2"></i>Absensi</a>
                 @else
                     <a href="{{ route('materi') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'materi' ? 'active' : '' }}"><i
                             class="fa fa-book me-2"></i>Materi</a>
-                    <a href=""
+                    <a href="{{ route('kuis-index') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'kuis' ? 'active' : '' }}"><i
                             class="fa fa-star me-2"></i>Kuis</a>
                     <a href=""
                         class="nav-item nav-link {{ Route::currentRouteName() == 'nilai' ? 'active' : '' }}"><i
                             class="fa fa-clipboard-list me-2"></i>nilai</a>
-                    <a href=""
-                        class="nav-item nav-link {{ Route::currentRouteName() == 'nilai' ? 'active' : '' }}"><i
-                            class="fa fa-clipboard-list me-2"></i>Absen saya</a>
                 @endif
             </div>
         </nav>

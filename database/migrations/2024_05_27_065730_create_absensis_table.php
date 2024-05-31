@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kuis', function (Blueprint $table) {
+        Schema::create('absensis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->enum('type', ['TANGO','BUNPOU','CHOKAI','DOKKAI']);
-            $table->string('judulkuis');
-            $table->string('jumlahsoal');
-            $table->enum('status',['belum mulai','siap mulai','sedang mulai','telah selesai']);
+            $table->foreignId('materi_id')->references('id')->on('materis')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kuis');
+        Schema::dropIfExists('absensis');
     }
 };

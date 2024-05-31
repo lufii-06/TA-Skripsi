@@ -49,7 +49,6 @@
                                             class="btn btn-outline-primary">Berhentikan</a>
                                     </td>
                                 @endif
-
                             </tr>
                         @empty
                             <tr>

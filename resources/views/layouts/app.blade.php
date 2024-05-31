@@ -143,7 +143,6 @@
             });
         </script>
     @endif
-
     @if (session()->get('error'))
         <script>
             iziToast.error({
@@ -155,6 +154,55 @@
     @endif
     @livewireScripts
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+                        'indent', 'outdent', '|',
+                        'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo'
+                    ],
+                    heading: {
+                        options: [{
+                                model: 'paragraph',
+                                title: 'Paragraph',
+                                class: 'ck-heading_paragraph'
+                            },
+                            {
+                                model: 'heading1',
+                                view: 'h1',
+                                title: 'Heading 1',
+                                class: 'ck-heading_heading1'
+                            },
+                            {
+                                model: 'heading2',
+                                view: 'h2',
+                                title: 'Heading 2',
+                                class: 'ck-heading_heading2'
+                            },
+                            {
+                                model: 'heading3',
+                                view: 'h3',
+                                title: 'Heading 3',
+                                class: 'ck-heading_heading3'
+                            }
+                        ]
+                    },
+                    placeholder: 'Start typing your text here...'
+                })
+                .then(editor => {
+                    // Apply dark mode styles to CKEditor
+                    const editorElement = editor.ui.view.editable.element;
+                    editorElement.classList.add('ck-editor__editable_inline');
+                    const toolbarElement = editor.ui.view.toolbar.element;
+                    toolbarElement.classList.add('ck-toolbar');
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+
         $(document).ready(function() {
             const searchInput = $('#search');
             const clearSearch = $('#clearSearch');
@@ -185,6 +233,7 @@
         });
     </script>
     <!-- JavaScript Libraries -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/lib/chart/chart.min.js') }}"></script>

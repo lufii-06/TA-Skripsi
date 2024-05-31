@@ -2,13 +2,16 @@
 
 use App\Http\Controllers\Siswa;
 use App\Http\Controllers\Materi;
+use App\Http\Controllers\Absensi;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WaController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\kuisController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\SenseiController;
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -23,21 +26,6 @@ use App\Http\Controllers\Auth\RegisterController;
 |
 */
 
-// route::get('/tesapi', function () {
-//     $response = Http::withHeaders([
-//         'Authorization' => 'Bearer ' . 'vB0vX+pTsrNTXRRgK1HqzIlrYBDvf8LKiOqzvzaWQBpO4GpyRJgJwdgnakJAOu9o-luthfi',
-//     ])->get('https://api.kirimwa.id/v1/devices');
-//     if ($response->json()['data'][0]['status'] == "disconnected") {
-//         $response1 = Http::withHeaders([
-//             'Authorization' => 'Bearer ' . 'vB0vX+pTsrNTXRRgK1HqzIlrYBDvf8LKiOqzvzaWQBpO4GpyRJgJwdgnakJAOu9o-luthfi',
-//         ])->get('https://api.kirimwa.id/v1/qr?device_id=admin');
-//         $qr = $response1->json()['image_url'];
-//         return redirect()->away($qr);
-//     }
-// });
-
-
-Route::get('/kirimwa', [WaController::class, 'sendWhatsAppMessage'])->name('send.whatsapp');
 
 Route::get('/', function () {
     $user = Auth::user();
@@ -46,6 +34,7 @@ Route::get('/', function () {
     }
     return view('welcome');
 });
+Route::get('/kirimwa', [WaController::class, 'sendWhatsAppMessage'])->name('send.whatsapp');
 
 Auth::routes();
 Route::post('/storeprofile', [HomeController::class, 'store'])->name('profile.store');
@@ -59,12 +48,14 @@ Route::get('/home', [HomeController::class, 'home'])->name('home');
 Route::get('/materi', [MateriController::class, 'index'])->name('materi')->middleware('auth');
 Route::get('/matericreate', [MateriController::class, 'create'])->name('materi-create')->middleware('auth');
 Route::get('/materisearch', [MateriController::class, 'search'])->name('materi-search')->middleware('auth');
+Route::get('/materidestroy/{id}', [MateriController::class, 'destroy'])->name('materi-destroy')->middleware('auth');
 Route::get('/siswasearch', [SiswaController::class, 'search'])->name('siswa-search')->middleware('auth');
+Route::get('/kuissearch', [kuisController::class, 'search'])->name('kuis-search')->middleware('auth');
 Route::get('/senseicreate', [SenseiController::class, 'create'])->name('sensei-create');
-Route::put('/senseiupdate/{id}', [SenseiController::class, 'update'])->name('sensei-update');
-Route::get('/senseiterima/{id}', [SenseiController::class, 'terima'])->name('sensei-terima');
-Route::get('/senseitolak/{id}', [SenseiController::class, 'tolak'])->name('sensei-tolak');
-Route::get('/senseiberhenti/{id}', [SenseiController::class, 'berhenti'])->name('sensei-berhenti');
+Route::put('/senseiupdate/{id}', [SenseiController::class, 'update'])->name('sensei-update')->middleware('auth');
+Route::get('/senseiterima/{id}', [SenseiController::class, 'terima'])->name('sensei-terima')->middleware('auth');
+Route::get('/senseitolak/{id}', [SenseiController::class, 'tolak'])->name('sensei-tolak')->middleware('auth');
+Route::get('/senseiberhenti/{id}', [SenseiController::class, 'berhenti'])->name('sensei-berhenti')->middleware('auth');
 Route::post('/senseistore', [SenseiController::class, 'store'])->name('sensei-store');
 Route::get('/senseisearch', [SenseiController::class, 'search'])->name('sensei-search')->middleware('auth');
 Route::post('/materistore', [MateriController::class, 'store'])->name('materi-store')->middleware('auth');
@@ -74,4 +65,13 @@ Route::put('/updatesiswa/{id}', [SiswaController::class, 'update'])->name('siswa
 Route::get('/lulussiswa/{id}', [SiswaController::class, 'lulus'])->name('siswa-lulus')->middleware('auth');
 Route::get('/hapussiswa/{id}', [SiswaController::class, 'hapus'])->name('siswa-hapus')->middleware('auth');
 Route::get('/daftarsensei', [SenseiController::class, 'index'])->name('sensei-index')->middleware('auth');
+Route::get('/absensi/{id}', [AbsensiController::class, 'absen'])->name('absen-create')->middleware('auth');
+Route::get('/kuis', [kuisController::class, 'index'])->name('kuis-index')->middleware('auth');
+Route::POST('/kuiscreate', [kuisController::class, 'create'])->name('kuis-create')->middleware('auth');
+Route::get('/soalcreate/{id}', [kuisController::class, 'soalCreate'])->name('soal-create')->middleware('auth');
+Route::post('/soalcreate/{id}', [kuisController::class, 'soalStore'])->name('soal-store')->middleware('auth');
+Route::get('/kuismulai/{id}', [kuisController::class, 'mulaiKuis'])->name('kuis-mulai')->middleware('auth');
+Route::get('/kuistutup/{id}', [kuisController::class, 'tutupKuis'])->name('kuis-tutup')->middleware('auth');
+Route::get('/kuiskerjakan/{id}', [kuisController::class, 'kerjakanKuis'])->name('kuis-kerjakan')->middleware('auth');
+
 // Route::get('/kuisdetail/{id}', [HomeController::class, 'detail'])->name('pesan-detail')->middleware('auth');

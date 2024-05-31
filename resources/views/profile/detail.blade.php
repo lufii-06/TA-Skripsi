@@ -19,7 +19,7 @@
 
                         @if (!empty($qr))
                             {{ 'Koneksi Wa : No Connection' }} <br>
-                            <span class="text-primary">!! penting Saat berhasil menautkan WhatsApp Tolong Untuk Merefresh
+                            <span class="text-primary">!! penting <br> Saat berhasil menautkan WhatsApp Tolong Untuk Merefresh
                                 halaman web</span> <br>
                         @else
                             {{ 'Koneksi Wa : Connected' }}

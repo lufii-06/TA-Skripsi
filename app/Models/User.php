@@ -72,6 +72,11 @@ class User extends Authenticatable
         return $this->hasMany(Nilai::class);
     }
 
+    public function Absensi()
+    {
+        return $this->hasMany(Absensi::class);
+    }
+
 
     public function scopeFilter($query, array $filters)
     {

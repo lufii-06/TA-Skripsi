@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi;
 use auth;
 use App\Models\Pesan;
 use App\Models\Materi;
@@ -32,7 +33,8 @@ class MateriController extends Controller
             return redirect()->route('home')->withErrors('Materi tidak ditemukan.');
         }
         $user = auth::user();
-        return view('materi.materi-detail', compact('user', 'materi'));
+        $absensi = Absensi::where('user_id',$user->id)->where('materi_id',$materi->id)->first();
+        return view('materi.materi-detail', compact('materi','user','absensi'));
     }
 
     public function search()
@@ -93,4 +95,12 @@ class MateriController extends Controller
 
         return redirect()->route('send.whatsapp');
     }
+
+    public function destroy($id){
+        $materi = Materi::find($id);
+        $materi->delete();
+        return redirect()->route('materi')->with('success','telah menghapus materi');
+    }
+
+   
 }

@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class soal extends Model
+class Soal extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'kuid_id',
+        'kuis_id',
         'soal',
         'jawabanbenar',
-        'jawaban1',
-        'jawaban2',
-        'jawaban3',
+        'jawabansatu',
+        'jawabandua',
+        'jawabantiga',
     ];
 
     public function Kuis()

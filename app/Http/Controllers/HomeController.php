@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kuis;
 use App\Models\User;
+use App\Models\Materi;
 use App\Models\DetailUser;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -118,8 +120,15 @@ class HomeController extends Controller
         if ($kode == 'materi') {
             return redirect()->route('materi-detail', $nokode);
         } else {
-            // return redirect()->route();
-            dd($id);
+            $user = Auth::user();
+            if ($user->status == '1') {
+                $kuis = Kuis::with('user', 'persyaratan.materi.absensi')->where('id',$nokode)->paginate(5);
+                return view('kuis.kuis-index', compact('user', 'kuis'));
+            } else {
+                $kuis = Kuis::with('user', 'persyaratan.materi.absensi')->where('id',$nokode)->paginate(5);
+                $syaratmateri = Materi::all();
+                return view('kuis.kuis-index', compact('user', 'kuis', 'syaratmateri'));
+            }
         }
     }
 
@@ -137,7 +146,7 @@ class HomeController extends Controller
             $qr = $response1->json()['image_url'];
             return view('profile.detail', compact('user', 'qr'));
         }
-        
+
         return view('profile.detail', compact('user'));
 
     }

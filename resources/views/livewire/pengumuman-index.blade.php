@@ -1,6 +1,6 @@
-<div>
+<div wire:poll.2000ms>
     <div class="px-4 mt-5">
-        <h4 class="bg-secondary p-4 m-0">Papan Pengumuman</h4>
+        <h4 class="bg-secondary p-4 m-0 rounded">Papan Pengumuman</h4>
         <div class="bg-secondary overflow-auto pengumuman" style="max-height: 60vh">
             <div class="chat-container fw-bold pe-4 px-4">
                 <div class="d-flex justify-content-end">
@@ -15,7 +15,8 @@
                                         @endif
                                         Me
                                     </p>
-                                    <a {{ $item->info ? "href=".route('pesan-detail',$item->info)."" : '' }} class="{{ $item->info ? 'text-primary' : 'text-white' }}">
+                                    <a {{ $item->info ? 'href=' . route('pesan-detail', $item->info) . '' : '' }}
+                                        class="{{ $item->info ? 'text-primary' : 'text-white' }}">
                                         <small class="me-2 text-success">
                                             @php
                                                 $createdAt = \Carbon\Carbon::parse($item->created_at);
@@ -28,13 +29,15 @@
                                     </a>
                                 </div>
                             @else
-                                <p class="text-primary">{{ ucfirst(explode(' ', $item->user->name)[0]) }}
+                                <p class="{{ $item->info ? 'text-success' : 'text-primary' }} mb-0">
+                                    {{ ucfirst(explode(' ', $item->user->name)[0]) }}
                                     @if ($user->status == '4')
                                         <a wire:click.prevent="deletepesan({{ $item->id }})" class="ms-2"><i
                                                 class="fa fa-trash">&nbsp;Hapus</i></a>
                                     @endif
                                 </p>
-                                <a {{ $item->info ? "href=".route('pesan-detail',$item->info)."" : '' }}  class="text-white">
+                                <a {{ $item->info ? 'href=' . route('pesan-detail', $item->info) . '' : '' }}
+                                    class="{{ $item->info ? 'text-primary' : 'text-white' }}">
                                     {{ $item->pesan }}
                                     <small class="ms-2 text-success">
                                         @php
@@ -45,6 +48,7 @@
                                         @endphp
                                     </small>
                                 </a>
+                                <div class="my-4"></div>
                             @endif
                         @empty
                             <p class="text-muted">Admin atau Sensei Belum Mengumumkan Apapun</p>
