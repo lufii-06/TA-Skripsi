@@ -11,12 +11,12 @@
                     </div>
                     <div class="">
                         Jam : {{ $materi->created_at->format('H:i') }}
-                        <br>Tanggal : {{ $materi->created_at->format('d F Y ') }}
+                        <br>Tanggal : {{ $materi->created_at->translatedFormat('d F Y ') }}
                     </div>
                 </div>
                 <div class="download-section d-flex align-items-end flex-column mb-4">
                     @if ($materi->filemateri)
-                        <a href="{{ Storage::url($materi->filemateri) }}" target="_blank"
+                        <a href="{{ asset($materi->filemateri) }}" target="_blank"
                             class="btn btn-outline-primary d-flex align-items-center mb-2">
                             <i class="fas fa-download me-2"></i>
                             Download Materi

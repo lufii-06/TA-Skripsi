@@ -11,6 +11,7 @@ class Kuis extends Model
 
     protected $fillable = [
         'user_id',
+        'kelas_id',
         'type',
         'judulkuis',
         'jumlahsoal',
@@ -33,6 +34,11 @@ class Kuis extends Model
     public function Persyaratan()
     {
         return $this->hasMany(Persyaratan::class);
+    }
+
+    public function Kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
     public function scopeFilter($query, array $filters)

@@ -101,6 +101,24 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="jenkel" class="form-label">Jenis Kelamin</label>
+                                        <select class="form-select" id="jenkel" name="jenkel"
+                                            required required>
+                                            <option disabled selected>Pilih Jenis Kelamin</option>
+                                            <option value="Laki-laki"
+                                                {{ old('jenkel') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                            <option value="Perempuan"
+                                                {{ old('jenkel') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                        </select>
+                                        @error('jenkel')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <label for="birthPlace" class="form-label">Tempat Lahir</label>
@@ -139,8 +157,8 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <label for="levelkemampuan" class="form-label">Level Kemampuan</label>
-                                        <select class="form-select" id="levelkemampuan" name="levelkemampuan" required
-                                            required>
+                                        <select class="form-select" id="levelkemampuan" name="levelkemampuan"
+                                            required required>
                                             <option disabled selected>Pilih Level Kemampuan</option>
                                             <option value="N4"
                                                 {{ old('levelkemampuan') == 'N4' ? 'selected' : '' }}>N4</option>

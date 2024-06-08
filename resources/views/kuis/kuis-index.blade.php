@@ -1,6 +1,12 @@
 @extends('layouts.sidebar')
 
 @section('content')
+    <style>
+        details.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+    </style>
     <div class="container-fluid pt-4 px-4">
         <h2 class="mb-0">Kuis</h2>
         <div class="d-flex justify-content-between">
@@ -23,46 +29,49 @@
             </div>
         </div>
         @forelse ($kuis as $item)
-            <details class="mb-3 bg-secondary p-3 rounded">
+            <details class="mb-3 bg-secondary p-3 rounded" id="detailsElement">
                 <summary class="" style="list-style-type: none;">
                     <div class="d-flex justify-content-between">
                         <div class="text-white"> {{ strtoupper('Judul : ' . $item->judulkuis) }}</div>
-                        <div class="">PEMBUAT : {{ strtoupper($item->user->name) }}|TIPE&nbsp;{{ $item->type }}
+                        <div class="">{{ strtoupper($item->kelas->name) }}|TIPE&nbsp;{{ $item->type }}
                             |
                             {{ strtoupper($item->status) }}</div>
                     </div>
                 </summary>
-                <div class="d-flex justify-content-end mt-2 mb-0">
-                    @if ($item->status == 'belum mulai')
-                        @if ($user->status == '3')
-                            <a href="{{ route('soal-create', $item->id) }}" class="btn btn-primary me-2">Buat Soal</a>
+                @if ($user->status != '4')
+                    <div class="d-flex justify-content-end mt-2 mb-0">
+                        @if ($item->status == 'belum mulai')
+                            @if ($user->status == '3')
+                                <a href="{{ route('soal-create', $item->id) }}" class="btn btn-primary me-2">Buat Soal</a>
+                            @else
+                                <a href="" class="btn btn-primary me-2 disabled">Kerjakan</a>
+                            @endif
+                        @elseif($item->status == 'siap mulai')
+                            @if ($user->status == '3')
+                                <a href="{{ route('kuis-mulai', $item->id) }}" class="btn btn-primary me-2">Mulai Kuis</a>
+                            @else
+                                <a href="" class="btn btn-primary me-2 disabled">Mulai Kuis</a>
+                            @endif
+                        @elseif($item->status == 'sedang mulai')
+                            @if ($user->status == '3')
+                                <a href="{{ route('kuis-tutup', $item->id) }}" class="btn btn-primary me-2">Tutup Kuis</a>
+                            @else
+                                <a href="{{ route('kuis-kerjakan', $item->id) }}" class="btn btn-primary me-2 mt-2 "
+                                    id="kerjakan{{ $item->id }}">Kerjakan
+                                </a>
+                            @endif
                         @else
-                            <a href="" class="btn btn-primary me-2 disabled">Kerjakan</a>
+                            @if ($user->status == '3')
+                                <a href="" class="btn btn-primary me-2">Lihat Hasil</a>
+                            @else
+                                <a href="" class="btn btn-primary me-2">Nilai</a>
+                            @endif
                         @endif
-                    @elseif($item->status == 'siap mulai')
-                        @if ($user->status == '3')
-                            <a href="{{ route('kuis-mulai', $item->id) }}" class="btn btn-primary me-2">Mulai Kuis</a>
-                        @else
-                            <a href="" class="btn btn-primary me-2 disabled">Mulai Kuis</a>
-                        @endif
-                    @elseif($item->status == 'sedang mulai')
-                        @if ($user->status == '3')
-                            <a href="{{ route('kuis-tutup', $item->id) }}" class="btn btn-primary me-2">Tutup Kuis</a>
-                        @else
-                            <a href="{{ route('kuis-kerjakan',$item->id) }}" class="btn btn-primary me-2 mt-2 " id="kerjakan{{ $item->id }}">Kerjakan
-                            </a>
-                        @endif
-                    @else
-                        @if ($user->status == '3')
-                            <a href="" class="btn btn-primary me-2">Lihat Hasil</a>
-                        @else
-                            <a href="" class="btn btn-primary me-2">Nilai</a>
-                        @endif
-                    @endif
-                </div>
-                <p style="margin-top: -65px">
+                    </div>
+                @endif
+                <p style="{{ $user->status == '4' ? '' : 'margin-top: -65px' }}">
                     <br>Jumlah Soal : {{ $item->jumlahsoal }}
-                    <br>Persyaratan : 
+                    <br>Persyaratan :
                     @if (!$item->persyaratan)
                         Tidak ada Persyaratan
                     @else
@@ -87,7 +96,8 @@
                         @endforeach
                     @endif
                     @if ($user->status == '1')
-                        <span class="text-danger">Jika ada pastikan sudah mengikuti materi yang menjadi syarat dalam kuis ini
+                        <span class="text-danger">Jika ada pastikan sudah mengikuti materi yang menjadi syarat dalam kuis
+                            ini
                             !!</span>
                     @endif
                 </p>

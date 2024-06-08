@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\Siswa;
 use App\Http\Controllers\Materi;
 use App\Http\Controllers\Absensi;
@@ -58,9 +59,13 @@ Route::get('/senseitolak/{id}', [SenseiController::class, 'tolak'])->name('sense
 Route::get('/senseiberhenti/{id}', [SenseiController::class, 'berhenti'])->name('sensei-berhenti')->middleware('auth');
 Route::post('/senseistore', [SenseiController::class, 'store'])->name('sensei-store');
 Route::get('/senseisearch', [SenseiController::class, 'search'])->name('sensei-search')->middleware('auth');
+Route::get('/kelassearch', [SiswaController::class, 'kelassearch'])->name('kelas-search')->middleware('auth');
+Route::post('/kelassearch/{id}', [SiswaController::class, 'kelasgabung'])->name('kelas-gabung')->middleware('auth');
 Route::post('/materistore', [MateriController::class, 'store'])->name('materi-store')->middleware('auth');
 Route::get('/materidetail/{id}', [MateriController::class, 'detail'])->name('materi-detail')->middleware('auth');
 Route::get('/daftarsiswa', [SiswaController::class, 'index'])->name('siswa-index')->middleware('auth');
+Route::get('/daftarkelas', [SiswaController::class, 'kelasindex'])->name('kelas-index')->middleware('auth');
+Route::get('/detailkelas/{id}', [SiswaController::class, 'kelasdetail'])->name('kelas-detail')->middleware('auth');
 Route::put('/updatesiswa/{id}', [SiswaController::class, 'update'])->name('siswa-update')->middleware('auth');
 Route::get('/lulussiswa/{id}', [SiswaController::class, 'lulus'])->name('siswa-lulus')->middleware('auth');
 Route::get('/hapussiswa/{id}', [SiswaController::class, 'hapus'])->name('siswa-hapus')->middleware('auth');
@@ -70,8 +75,20 @@ Route::get('/kuis', [kuisController::class, 'index'])->name('kuis-index')->middl
 Route::POST('/kuiscreate', [kuisController::class, 'create'])->name('kuis-create')->middleware('auth');
 Route::get('/soalcreate/{id}', [kuisController::class, 'soalCreate'])->name('soal-create')->middleware('auth');
 Route::post('/soalcreate/{id}', [kuisController::class, 'soalStore'])->name('soal-store')->middleware('auth');
+Route::post('/soalchokaicreate/{id}', [kuisController::class, 'soalchokaiStore'])->name('soalchokai-store')->middleware('auth');
 Route::get('/kuismulai/{id}', [kuisController::class, 'mulaiKuis'])->name('kuis-mulai')->middleware('auth');
 Route::get('/kuistutup/{id}', [kuisController::class, 'tutupKuis'])->name('kuis-tutup')->middleware('auth');
 Route::get('/kuiskerjakan/{id}', [kuisController::class, 'kerjakanKuis'])->name('kuis-kerjakan')->middleware('auth');
 
+Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai')->middleware('auth');
+Route::get('/nilaidetail', [NilaiController::class, 'nilaisaya'])->name('nilai-detail')->middleware('auth');
+Route::get('/nilaisearch', [NilaiController::class, 'nilaisearch'])->name('nilai-search')->middleware('auth');
+Route::get('/kuisdetail/{id}', [NilaiController::class, 'detailkuis'])->name('kuis-detail')->middleware('auth');
 // Route::get('/kuisdetail/{id}', [HomeController::class, 'detail'])->name('pesan-detail')->middleware('auth');
+
+Route::post('/cetaksensei', [SenseiController::class, 'cetaksensei'])->name('sensei-cetak')->middleware('auth');
+Route::post('/cetaksiswa', [SiswaController::class, 'cetaksiswa'])->name('siswa-cetak')->middleware('auth');
+Route::get('/cetakkelas', [SiswaController::class, 'cetakkelas'])->name('kelas.cetak')->middleware('auth');
+Route::post('/cetakmateri', [MateriController::class, 'cetakmateri'])->name('materi-cetak')->middleware('auth');
+Route::post('/cetakmateriperkelas', [MateriController::class, 'cetakmateriperkelas'])->name('materi.cetakperkelas')->middleware('auth');
+

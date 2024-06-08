@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DetailUser;
 use App\Models\User;
-use GrahamCampbell\ResultType\Success;
+use App\Models\Kelas;
+use App\Models\DetailUser;
+use App\Models\AnggotaKelas;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Validator;
 
 class SenseiController extends Controller
@@ -39,6 +42,7 @@ class SenseiController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:5', 'confirmed'],
+            'jenkel' => ['required', Rule::in(['Laki-laki', 'Perempuan'])],
             'alamat' => ['required', 'string'],
             'tempat_lahir' => ['required', 'string'],
             'tanggal_lahir' => ['required', 'date'],
@@ -66,6 +70,7 @@ class SenseiController extends Controller
         ]);
         $detailuser = DetailUser::create([
             'user_id' => $user->id,
+            'jenkel' => $request->jenkel,
             'alamat' => $request->alamat,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
@@ -76,7 +81,8 @@ class SenseiController extends Controller
         ]);
         return redirect()->route('home')->with('Success', 'Tunggu informasi penerimaan dari pihak lpk ');
     }
-    public function update(Request $request,$id){
+    public function update(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
@@ -90,12 +96,12 @@ class SenseiController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        User::where('id',$id)->update([
+        User::where('id', $id)->update([
             'name' => $request->name,
             'email' => $request->email,
         ]);
 
-        DetailUser::where('user_id',$id)->update([
+        DetailUser::where('user_id', $id)->update([
             'alamat' => $request->alamat,
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
@@ -103,12 +109,28 @@ class SenseiController extends Controller
             'nohp' => $request->nohp,
             'levelkemampuan' => $request->levelkemampuan,
         ]);
-        return redirect()->route('profile-detail')->with('success','Berhasil mengupdate profil');
+        return redirect()->route('profile-detail')->with('success', 'Berhasil mengupdate profil');
     }
     public function terima($id)
     {
         $sensei = User::find($id);
         $sensei->update(['status' => '3']);
+        $jmlsensei = User::where('status', '3')->count();
+        $no_sensei = str_pad($jmlsensei, 7, '0', STR_PAD_LEFT);
+        $g = 'G-';
+        DetailUser::where('user_id', $sensei->id)->update(['user_nomor' => $g . $no_sensei]);
+        $kelas = Kelas::create([
+            'user_id' => $sensei->id,
+            'name' => $sensei->name . ' の クラス',
+        ]);
+        AnggotaKelas::insert([
+            'user_id' => $sensei->id,
+            'kelas_id' => $kelas->id,
+        ]);
+        AnggotaKelas::create([
+            'user_id' => '1',
+            'kelas_id' => $kelas->id,
+        ]);
         return redirect()->back()->with('success', 'Telah Menerima sensei baru');
     }
     public function tolak($id)
@@ -123,6 +145,29 @@ class SenseiController extends Controller
         $sensei = User::find($id);
         $sensei->delete();
         return redirect()->back()->with('success', 'Sensei telah berhenti mengajari di hoshi hikari');
+    }
+
+    public function cetaksensei(Request $request)
+    {
+        $periode = $request->periode;
+        $tahun = $request->tahun;
+        if ($periode == 'Genap') {
+            $tanggal1 = $tahun . '-04-01';
+            $tanggal2 = $tahun . '-09-30';
+        } else {
+            $tanggal1 = $tahun . '-10-1';
+            $tanggal2 = $tahun + 1 . '-03-31';
+        }
+        $sensei = User::with('detailuser')->where('status', '3')
+            ->whereHas('detailuser', function ($query) {
+                $query->whereNotNull('user_nomor');
+            })->whereBetween('updated_at', [$tanggal1, $tanggal2])->get();
+        if ($sensei->isEmpty()) {
+            return back()->with('error', 'sensei Tidak Ada');
+        } else {
+            $pdf = Pdf::loadView('sensei.cetak', compact('sensei', 'periode', 'tahun'));
+            return $pdf->download('Datasensei.pdf');
+        }
     }
 
 }

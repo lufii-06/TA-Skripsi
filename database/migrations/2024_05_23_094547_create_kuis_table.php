@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('kuis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('kelas_id')->references('id')->on('kelas')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('type', ['TANGO','BUNPOU','CHOKAI','DOKKAI']);
             $table->string('judulkuis');
             $table->string('jumlahsoal');

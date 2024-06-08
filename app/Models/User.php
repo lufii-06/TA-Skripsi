@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\AnggotaKelas;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -77,6 +78,16 @@ class User extends Authenticatable
         return $this->hasMany(Absensi::class);
     }
 
+    public function Kelas()
+    {
+        return $this->hasOne(Kelas::class);
+    }
+
+    public function anggotakelas()
+    {
+        return $this->hasOne(AnggotaKelas::class);
+    }
+
 
     public function scopeFilter($query, array $filters)
     {
@@ -86,6 +97,7 @@ class User extends Authenticatable
                     ->orWhere('email', 'like', '%' . $search . '%')
                     ->orWhereHas('detailuser', function ($query) use ($search) {
                         $query->where('alamat', 'LIKE', '%' . $search . '%')
+                            ->orWhere('user_nomor', 'like', '%' . $search . '%')
                             ->orWhere('tempat_lahir', 'like', '%' . $search . '%')
                             ->orWhere('tanggal_lahir', 'like', '%' . $search . '%')
                             ->orWhere('nohp', 'like', '%' . $search . '%')

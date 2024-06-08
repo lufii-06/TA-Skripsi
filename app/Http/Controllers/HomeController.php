@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kuis;
 use App\Models\User;
+use App\Models\Kelas;
 use App\Models\Materi;
 use App\Models\DetailUser;
 use Illuminate\Http\Request;
@@ -43,7 +44,10 @@ class HomeController extends Controller
         } elseif ($user->status == '2') {
             return view('sensei.informasi', compact('user'));
         } else {
-            $jmluser = User::where('status', '1')->count();
+            $jmluser = User::where('status', '1')
+                ->whereHas('detailuser', function ($query) {
+                    $query->whereNotNull('user_nomor');
+                })->count();
             $jmlsensei = User::where('status', '3')->count();
             return view('layouts.home', compact("user", "jmluser", "jmlsensei", "semester"));
         }
@@ -52,6 +56,7 @@ class HomeController extends Controller
     {
         $validatedData = $request->validate([
             'alamat' => ['required', 'string'],
+            'jenkel' => ['required', Rule::in(['Laki-laki', 'Perempuan'])],
             'tempat_lahir' => ['required', 'string'],
             'tanggal_lahir' => ['required', 'date'],
             'usia' => ['required', 'integer'],
@@ -76,11 +81,14 @@ class HomeController extends Controller
             '*.required' => 'Wajib diisi',
         ]);
 
+        // $validatedData = $request->validate($rules, $messages);
+
         // Dapatkan ID pengguna yang saat ini masuk
         $user = Auth::user();
 
         $newData = [
             'user_id' => $user->id,
+            'jenkel' => $validatedData['jenkel'],
             'alamat' => $validatedData['alamat'],
             'tempat_lahir' => $validatedData['tempat_lahir'],
             'tanggal_lahir' => $validatedData['tanggal_lahir'],
@@ -101,7 +109,8 @@ class HomeController extends Controller
             'rabunButaWarna' => $validatedData['rabunButaWarna'],
             'gigiPalsu' => $validatedData['gigiPalsu'],
             'soal1' => $validatedData['soal1'],
-            'soal2' => $validatedData['soal2']
+            'soal2' => $validatedData['soal2'],
+            'levelkemampuan' => 'N5',
         ];
 
         $DetailUser = new DetailUser($newData);
@@ -122,10 +131,10 @@ class HomeController extends Controller
         } else {
             $user = Auth::user();
             if ($user->status == '1') {
-                $kuis = Kuis::with('user', 'persyaratan.materi.absensi')->where('id',$nokode)->paginate(5);
+                $kuis = Kuis::with('user', 'persyaratan.materi.absensi')->where('id', $nokode)->paginate(5);
                 return view('kuis.kuis-index', compact('user', 'kuis'));
             } else {
-                $kuis = Kuis::with('user', 'persyaratan.materi.absensi')->where('id',$nokode)->paginate(5);
+                $kuis = Kuis::with('user', 'persyaratan.materi.absensi')->where('id', $nokode)->paginate(5);
                 $syaratmateri = Materi::all();
                 return view('kuis.kuis-index', compact('user', 'kuis', 'syaratmateri'));
             }
@@ -135,7 +144,14 @@ class HomeController extends Controller
     public function detailprofile()
     {
         $iduser = Auth::id();
-        $user = User::with('detailuser')->find($iduser);
+        $user = User::with('detailuser', 'anggotakelas')->find($iduser);
+        if ($user->anggotakelas) {
+            $kelas = Kelas::where('id', $user->anggotakelas->kelas_id)->first();
+        } else {
+            $kelas = (object) [
+                'name' => "Anda Belum Punya Kelas"
+            ];
+        }
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . 'vB0vX+pTsrNTXRRgK1HqzIlrYBDvf8LKiOqzvzaWQBpO4GpyRJgJwdgnakJAOu9o-luthfi',
         ])->get('https://api.kirimwa.id/v1/devices');
@@ -146,8 +162,7 @@ class HomeController extends Controller
             $qr = $response1->json()['image_url'];
             return view('profile.detail', compact('user', 'qr'));
         }
-
-        return view('profile.detail', compact('user'));
+        return view('profile.detail', compact('user', 'kelas'));
 
     }
 

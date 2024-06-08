@@ -30,33 +30,42 @@
                     <a href="{{ route('sensei-index') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'sensei-index' ? 'active' : '' }}"><i
                             class="fa fa-user-tie me-2"></i>Sensei</a>
+                    <a href="{{ route('kelas-index') }}"
+                        class="nav-item nav-link {{ Route::currentRouteName() == 'kelas-index' ? 'active' : '' }}"><i
+                            class="fa fa-torii-gate me-2"></i>Kelas</a>
                     <a href="{{ route('materi') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'materi' ? 'active' : '' }}"><i
                             class="fa fa-book me-2"></i>Materi</a>
-                    <a href=""
+                    <a href="{{ route('kuis-index') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'kuis' ? 'active' : '' }}"><i
                             class="fa fa-star me-2"></i>Kuis</a>
                     <a href=""
                         class="nav-item nav-link {{ Route::currentRouteName() == 'nilai' ? 'active' : '' }}"><i
                             class="fa fa-clipboard-list me-2"></i>nilai</a>
                 @elseif($user->status == '3')
+                    <a href="{{ route('kelas-index') }}"
+                        class="nav-item nav-link {{ Route::currentRouteName() == 'kelas-index' ? 'active' : '' }}"><i
+                            class="fa fa-torii-gate me-2"></i>Kelas</a>
                     <a href="{{ route('materi') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'materi' ? 'active' : '' }}"><i
                             class="fa fa-book me-2"></i>Materi</a>
                     <a href="{{ route('kuis-index') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'kuis' ? 'active' : '' }}"><i
                             class="fa fa-star me-2"></i>Kuis</a>
-                    <a href=""
+                    <a href="{{ route('nilai') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'nilai' ? 'active' : '' }}"><i
                             class="fa fa-clipboard-list me-2"></i>nilai</a>
                 @else
+                    <a href="{{ route('kelas-index') }}"
+                        class="nav-item nav-link {{ Route::currentRouteName() == 'kelas-index' ? 'active' : '' }}"><i
+                            class="fa fa-torii-gate me-2"></i>Kelas</a>
                     <a href="{{ route('materi') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'materi' ? 'active' : '' }}"><i
                             class="fa fa-book me-2"></i>Materi</a>
                     <a href="{{ route('kuis-index') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'kuis' ? 'active' : '' }}"><i
                             class="fa fa-star me-2"></i>Kuis</a>
-                    <a href=""
+                    <a href="{{ route('nilai-detail') }}"
                         class="nav-item nav-link {{ Route::currentRouteName() == 'nilai' ? 'active' : '' }}"><i
                             class="fa fa-clipboard-list me-2"></i>nilai</a>
                 @endif

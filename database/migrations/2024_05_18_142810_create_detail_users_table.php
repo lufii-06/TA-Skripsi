@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('detail_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('user_nomor')->nullable()->unique();
+            $table->enum('jenkel',['Laki-laki','Perempuan'])->nullable();
             $table->string('alamat')->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();

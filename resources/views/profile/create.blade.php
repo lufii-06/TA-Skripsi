@@ -55,7 +55,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="alamat">Alamat</label>
-                                <input type="text" class="form-control w-100" id="alamat" name="alamat"
+                                <input type="text" class="form-control w-100" id="alamat" name="alamat" required
                                     value="{{ old('alamat') }}" placeholder="Alamat">
                                 @error('alamat')
                                     <span class="text-danger">{{ $message }}</span>
@@ -90,9 +90,29 @@
                             <div class="mb-3">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
+                                        <label for="jenkel" class="form-label">Jenis Kelamin</label>
+                                        <select class="form-select" id="jenkel" name="jenkel" required required>
+                                            <option disabled selected>Pilih Jenis Kelamin</option>
+                                            <option value="Laki-laki"
+                                                {{ old('jenkel') == 'Laki-laki' ? 'selected' : '' }}>
+                                                Laki-laki</option>
+                                            <option value="Perempuan"
+                                                {{ old('jenkel') == 'Perempuan' ? 'selected' : '' }}>
+                                                Perempuan</option>
+                                        </select>
+                                        @error('jenkel')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
                                         <label for="pendidikanterakhir" name="pendidikanterakhir"
                                             class="form-label">Pendidikan Terakhir</label>
-                                        <select class="form-select" id="pendidikanterakhir" name="pendidikanterakhir">
+                                        <select class="form-select" id="pendidikanterakhir"
+                                            name="pendidikanterakhir">
                                             <option disabled selected>Pilih Pendidikan Terakhir</option>
                                             <option value="SD"
                                                 {{ old('pendidikanterakhir') == 'SD' ? 'selected' : '' }}>SD</option>

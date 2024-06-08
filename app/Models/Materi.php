@@ -13,6 +13,7 @@ class Materi extends Model
 
     protected $fillable = [
         'user_id',
+        'kelas_id',
         'level',
         'judul',
         'isimateri',
@@ -23,6 +24,12 @@ class Materi extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function Kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id');
+    }
+
 
     public function Absensi()
     {

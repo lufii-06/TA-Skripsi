@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('nilais', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('kuid_id')->references('id')->on('kuis')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('nilai');
+            $table->foreignId('kuis_id')->references('id')->on('kuis')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->decimal('nilai', 5, 2);
             $table->timestamps();
         });
     }

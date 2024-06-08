@@ -1,38 +1,30 @@
 <div>
-    <style>
-        .btn-success:hover {
-            background-color: #6C7293;
-            border-color: #6C7293;
-            color: white;
-        }
-
-        .badge:hover {
-            background-color: #6C7293;
-            border-color: #6C7293;
-            color: white;
-        }
-    </style>
-
     <div class="row bg-secondary p-4 px-5 rounded mt-4">
         <div class="ms-2">
             <h4>Kerjakan Kuis</h4>
         </div>
         <div class="col-12 col-sm-12 col-md-12 col-lg-8 p-4">
             @if ($currentQuestion)
-                <h3 class="mb-3 text-center">{{ $currentQuestion->soal }}</h3>
-                <div id="buttonContainer" wire:poll.750ms>
+                @if ($kuis->type == 'CHOKAI')
+                    <div class="d-flex">
+                        <audio controls src="{{ asset('storage/' . $currentQuestion->soal) }}" class="w-100 mb-2"></audio>
+                    </div>
+                @else
+                    <h3 class="mb-3 text-center">{{ $currentQuestion->soal }}</h3>
+                @endif
+                <div wire:poll.750ms>
                     <a href="#" wire:loading.class="disabled"
-                        class="btn {{ $currentQuestion->jawabanbenar == $detailjawaban[$currentIndex]->jawabanbenar ? 'btn-primary' : 'btn-success' }} w-100 text-center mb-2"
-                        wire:click="simpanjawaban('{{ $currentQuestion->jawabanbenar }}')">{{ $currentQuestion->jawabanbenar }}</a>
+                        class="btn {{ $tampiljawaban[0] == $detailjawaban[$currentIndex]->jawabanbenar ? 'btn-primary' : 'btn-success' }} w-100 text-center mb-2"
+                        wire:click="simpanjawaban('{{ $tampiljawaban[0] }}')">{{ $tampiljawaban[0] }}</a>
                     <a href="#" wire:loading.class="disabled"
-                        class="btn {{ $currentQuestion->jawabansatu == $detailjawaban[$currentIndex]->jawabanbenar ? 'btn-primary' : 'btn-success' }} w-100 text-center mb-2"
-                        wire:click="simpanjawaban('{{ $currentQuestion->jawabansatu }}')">{{ $currentQuestion->jawabansatu }}</a>
+                        class="btn {{ $tampiljawaban[1] == $detailjawaban[$currentIndex]->jawabanbenar ? 'btn-primary' : 'btn-success' }} w-100 text-center mb-2"
+                        wire:click="simpanjawaban('{{ $tampiljawaban[1] }}')">{{ $tampiljawaban[1] }}</a>
                     <a href="#" wire:loading.class="disabled"
-                        class="btn {{ $currentQuestion->jawabandua == $detailjawaban[$currentIndex]->jawabanbenar ? 'btn-primary' : 'btn-success' }} w-100 text-center mb-2"
-                        wire:click="simpanjawaban('{{ $currentQuestion->jawabandua }}')">{{ $currentQuestion->jawabandua }}</a>
+                        class="btn {{$tampiljawaban[2] == $detailjawaban[$currentIndex]->jawabanbenar ? 'btn-primary' : 'btn-success' }} w-100 text-center mb-2"
+                        wire:click="simpanjawaban('{{ $tampiljawaban[2] }}')">{{ $tampiljawaban[2] }}</a>
                     <a href="#" wire:loading.class="disabled"
-                        class="btn {{ $currentQuestion->jawabantiga == $detailjawaban[$currentIndex]->jawabanbenar ? 'btn-primary' : 'btn-success' }} w-100 text-center mb-2"
-                        wire:click="simpanjawaban('{{ $currentQuestion->jawabantiga }}')">{{ $currentQuestion->jawabantiga }}</a>
+                        class="btn {{ $tampiljawaban[3] == $detailjawaban[$currentIndex]->jawabanbenar ? 'btn-primary' : 'btn-success' }} w-100 text-center mb-2"
+                        wire:click="simpanjawaban('{{ $tampiljawaban[3] }}')">{{ $tampiljawaban[3] }}</a>
                 </div>
                 <div class="d-flex mt-1">
                     <button class="btn btn-primary me-3" wire:click="previousQuestion"
@@ -52,7 +44,7 @@ Submit jika merasa sudah menjawab semua soal dengan benar dan anda tidak bisa me
                     <span class="badge bg-primary px-2 py-1 rounded-pill" style="cursor: pointer;">!</span>
                 </a>
             </h4>
-            <div class="mb-3" wire:poll.750ms>  
+            <div class="mb-3" wire:poll.750ms>
                 @foreach ($detailjawaban as $index => $item)
                     <a href="#" wire:click="kunjungisoal('{{ $index }}')"
                         class="badge  {{ $item->jawabanbenar ? 'btn-primary' : 'btn-success' }} {{ $currentIndex == $index ? 'btn-dark' : '' }}">{{ $index + 1 }}</a>
@@ -85,27 +77,4 @@ Submit jika merasa sudah menjawab semua soal dengan benar dan anda tidak bisa me
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('buttonContainer');
-            const elementsArray = Array.from(container.children);
-
-            function shuffle(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-                return array;
-            }
-
-            const shuffledElements = shuffle(elementsArray);
-
-            container.innerHTML = '';
-
-            shuffledElements.forEach(element => {
-                container.appendChild(element);
-            });
-        });
-    </script>
 </div>
