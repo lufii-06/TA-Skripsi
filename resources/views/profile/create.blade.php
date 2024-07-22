@@ -169,7 +169,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="nohp">Nohp</label>
-                                <input type="text" id="nohp" name="nohp" class="form-control w-50"
+                                <input type="text" id="nohp" name="nohp" class="form-control"
                                     placeholder="Nohp" value="{{ old('nohp') }}">
                                 @error('nohp')
                                     <span class="text-danger">{{ $message }}</span>

@@ -97,10 +97,18 @@
                                     name="password_confirmation" required autocomplete="new-password"
                                     placeholder="Confirm Password">
                             </div>
-                            <div class="d-flex">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-9 col-lg-9 mb-2">
+                                    <button type="submit" class="btn btn-primary py-2 ">Register</button>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-3 col-lg-3 my-auto">
+                                    <a href="{{ route('login') }}" class="py-2">Sudah Punya akun?</a>
+                                </div>
+                            </div>
+                            {{-- <div class="d-flex">
                                 <button type="submit" class="btn btn-primary py-2 w-25 mb-4">Register</button>
                                 <a href="{{ route('login') }}" class="py-2 w-25 mb-4 ms-3">Sudah Punya akun?</a>
-                            </div>
+                            </div> --}}
                         </form>
                     </div>
                 </div>

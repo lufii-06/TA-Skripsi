@@ -20,7 +20,7 @@
                             class="btn btn-outline-primary d-flex align-items-center mb-2">
                             <i class="fas fa-download me-2"></i>
                             Download Materi
-                        </a>
+                        </a>    
                     @endif
                     @if ($user->id == $materi->user_id)
                         <a class="btn btn-outline-primary" href="{{ route('materi-destroy', $materi->id) }}"><i

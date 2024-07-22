@@ -39,6 +39,7 @@ class MateriController extends Controller
         }
         $user = auth::user();
         $absensi = Absensi::where('user_id', $user->id)->where('materi_id', $materi->id)->first();
+        //
         return view('materi.materi-detail', compact('materi', 'user', 'absensi'));
     }
 

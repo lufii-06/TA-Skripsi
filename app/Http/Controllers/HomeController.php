@@ -155,12 +155,12 @@ class HomeController extends Controller
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . 'vB0vX+pTsrNTXRRgK1HqzIlrYBDvf8LKiOqzvzaWQBpO4GpyRJgJwdgnakJAOu9o-luthfi',
         ])->get('https://api.kirimwa.id/v1/devices');
-        if ($response->json()['data'][0]['status'] == "disconnected") {
+        if ($response !== null && $response->json()['data'][0]['status'] == "disconnected") {
             $response1 = Http::withHeaders([
                 'Authorization' => 'Bearer ' . 'vB0vX+pTsrNTXRRgK1HqzIlrYBDvf8LKiOqzvzaWQBpO4GpyRJgJwdgnakJAOu9o-luthfi',
             ])->get('https://api.kirimwa.id/v1/qr?device_id=admin');
             $qr = $response1->json()['image_url'];
-            return view('profile.detail', compact('user', 'qr'));
+            return view('profile.detail', compact('user', 'qr', 'kelas'));
         }
         return view('profile.detail', compact('user', 'kelas'));
 

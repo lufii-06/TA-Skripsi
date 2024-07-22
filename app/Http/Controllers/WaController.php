@@ -37,7 +37,7 @@ class WaController extends Controller
             $response = $this->whatsappSend->apiKirimWaRequest($params);
             return redirect()->route('home');
         } catch (Exception $e) {
-            return redirect()->route('home')->with('error','Pesan tidak ditampilkan dalam grup wa');
+            return redirect()->route('home')->with('error','Berhasil menyimpan materi tetapi Pesan tidak ditampilkan dalam grup wa');
         }
     }
 

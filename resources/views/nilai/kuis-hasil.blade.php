@@ -3,23 +3,18 @@
 @section('content')
     <div class="container-fluid pt-4 px-4">
         <h3 class="mb-4">Hasil Kuis {{ $kuis->judulkuis }}</h3>
-        <form action="{{ route('kelas-search') }}" method="get" id="searchForm">
-            <div class="form-floating">
-                <input type="text" class="form-control bg-secondary rounded-pill" style="width: 20rem" id="floatingInput"
-                    name="search" id="search" value="{{ request('search') }}" placeholder="Cari Nama kelas">
-                <label for="floatingInput">Cari Kuis</label>
-            </div>
-        </form>
+        <a href="{{ route('kuis-cetak',$kuis->id) }}" target="_blank" class="btn rounded-pill btn-primary mt-2">Cetak Nilai Kuis</a>
         <div class="bg-secondary rounded h-100 p-4 mt-5">
-            <p>Status : {{ $kuis->status }}</p>
-            <p>Sudah di kerjakan : {{ count($nilai) }} Siswa</p>
+            <p>
+                Type kuis : {{ $kuis->type }}<br>
+                Status : {{ $kuis->status }} <br>
+            Sudah di kerjakan : {{ count($nilai) }} Siswa</p>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">No</th>
-                            <th scope="col">Judul Kuis</th>
-                            <th scope="col">Type Kuis</th>
+                            <th scope="col">Nama Kiswa</th>
                             <th scope="col">Nilai</th>
                         </tr>
                     </thead>
@@ -27,13 +22,12 @@
                         @forelse ($nilai as $item)
                             <tr>
                                 <th>{{ $loop->iteration }}</th>
-                                <td>{{ $item->kuis->judulkuis }}</td>
-                                <td>{{ $item->kuis->type }}</td>
+                                <th>{{ $item->user->name }}</th>
                                 <td>{{ $item->nilai }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td class="p-4" colspan="11">Kuis Tidak Ada</td>
+                                <td class="p-4" colspan="3">Kuis Tidak Ada</td>
                             </tr>
                         @endforelse
                     </tbody>

@@ -150,8 +150,10 @@ class kuisController extends Controller
         if ($request->hasFile("soalaudio")) {
             $file = $request->file("soalaudio");
             $fileName = $file->getClientOriginalName();
+            $file->move(public_path('audios'), $fileName);
             $path = $file->storeAs('audios', $fileName, 'public');
         }
+        dd($file);
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();

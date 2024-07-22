@@ -25,7 +25,7 @@
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content bg-secondary">
-                    <form action="{{ route('sensei-cetak') }}" method="POST">
+                    <form action="{{ route('nilai-cetak') }}" method="POST" target="_blank">
                         @csrf
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Cetak Nilai</h1>

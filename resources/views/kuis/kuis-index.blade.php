@@ -62,9 +62,9 @@
                             @endif
                         @else
                             @if ($user->status == '3')
-                                <a href="" class="btn btn-primary me-2">Lihat Hasil</a>
+                                <a href="{{ route('kuis-detail', $item->id) }}" class="btn btn-primary me-2">Lihat Hasil</a>
                             @else
-                                <a href="" class="btn btn-primary me-2">Nilai</a>
+                                <a href="{{ route('nilai-detail')}}" class="btn btn-primary me-2">Halaman Nilai</a>
                             @endif
                         @endif
                     </div>
@@ -143,7 +143,6 @@
                                     </span>
                                 @enderror
                             </div>
-
                             <div class="mb-3">
                                 <label for="jumlahsoal">Jumlah Soal</label>
                                 <input type="number" id="jumlahsoal" name="jumlahsoal" class="form-control" required

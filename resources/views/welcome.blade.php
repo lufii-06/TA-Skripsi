@@ -329,7 +329,7 @@
                             <span class="icon-account" style="font-size: 1rem"><i
                                     class="fas fa-book-open fs-3"></i>&nbsp;</span>Pelajaran Bahasa Jepang
                         </h5>
-                        <p class="card-text text-">program pelajaran bahasa Jepang yang mencakup kursus intensif
+                        <p class="card-text text-justify">program pelajaran bahasa Jepang yang mencakup kursus intensif
                             untuk mempersiapkan peserta dengan kemampuan berkomunikasi di lingkungan profesional Jepang.
                         </p>
                     </div>
@@ -342,7 +342,7 @@
                             <span class="icon-account" style="font-size: 1rem"><i
                                     class="fas fa-user-nurse fs-3"></i>&nbsp;</span>Persiapan Calon Pekerja Jepang
                         </h5>
-                        <p class="card-text">program persiapan calon pekerja Jepang, termasuk pelatihan
+                        <p class="card-text text-justify">program persiapan calon pekerja Jepang, termasuk pelatihan
                             budaya dan etika kerja, simulasi lingkungan kerja.</p>
                     </div>
                 </div>
@@ -354,7 +354,7 @@
                             <span class="icon-account" style="font-size: 1rem"><i
                                     class="fa-solid fa-certificate fs-3"></i>&nbsp;</span>Pelatihan SSW
                         </h5>
-                        <p class="card-text">Program pelatihan SSW dirancang untuk membantu peserta mengembangkan
+                        <p class="card-text text-justify">Program pelatihan SSW dirancang untuk membantu peserta mengembangkan
                             keterampilan berbahasa
                             Jepang dalam suatu bidang pekerjaan.</p>
                     </div>

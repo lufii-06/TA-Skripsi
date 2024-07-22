@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('kuis_id')->references('id')->on('kuis')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('status');
+            $table->string('status',10);
             $table->timestamps();
         });
     }

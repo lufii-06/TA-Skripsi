@@ -58,7 +58,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="usia">Usia</label>
-                        <input type="number" id="usia" name="usia" class="form-control w-25" placeholder="Usia"
+                        <input type="number" id="usia" name="usia" class="form-control " placeholder="Usia"
                             value="{{ old('usia', $user->detailuser->usia) }}">
                         @error('usia')
                             <span class="text-danger">{{ $message }}</span>
@@ -143,7 +143,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="nohp">Nohp</label>
-                        <input type="text" id="nohp" name="nohp" class="form-control w-50"
+                        <input type="text" id="nohp" name="nohp" class="form-control"
                             placeholder="Nohp" value="{{ old('nohp', $user->detailuser->nohp) }}">
                         @error('nohp')
                             <span class="text-danger">{{ $message }}</span>
@@ -210,7 +210,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="usia">Usia</label>
-                        <input type="number" id="usia" name="usia" class="form-control w-25" required
+                        <input type="number" id="usia" name="usia" class="form-control" required
                             placeholder="Usia" value="{{ old('usia', $user->detailuser->usia) }}">
                         @error('usia')
                             <span class="text-danger">{{ $message }}</span>
@@ -218,7 +218,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="nohp">Nohp</label>
-                        <input type="text" id="nohp" name="nohp" class="form-control w-50" required
+                        <input type="text" id="nohp" name="nohp" class="form-control" required
                             placeholder="Nohp" value="{{ old('nohp', $user->detailuser->nohp) }}">
                         @error('nohp')
                             <span class="text-danger">{{ $message }}</span>

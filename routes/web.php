@@ -35,6 +35,7 @@ Route::get('/', function () {
     }
     return view('welcome');
 });
+
 Route::get('/kirimwa', [WaController::class, 'sendWhatsAppMessage'])->name('send.whatsapp');
 
 Auth::routes();
@@ -79,13 +80,12 @@ Route::post('/soalchokaicreate/{id}', [kuisController::class, 'soalchokaiStore']
 Route::get('/kuismulai/{id}', [kuisController::class, 'mulaiKuis'])->name('kuis-mulai')->middleware('auth');
 Route::get('/kuistutup/{id}', [kuisController::class, 'tutupKuis'])->name('kuis-tutup')->middleware('auth');
 Route::get('/kuiskerjakan/{id}', [kuisController::class, 'kerjakanKuis'])->name('kuis-kerjakan')->middleware('auth');
-
 Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai')->middleware('auth');
+Route::post('/cetaknilaisiswa', [NilaiController::class, 'cetaknilaisiswa'])->name('nilai-cetak')->middleware('auth');
 Route::get('/nilaidetail', [NilaiController::class, 'nilaisaya'])->name('nilai-detail')->middleware('auth');
 Route::get('/nilaisearch', [NilaiController::class, 'nilaisearch'])->name('nilai-search')->middleware('auth');
 Route::get('/kuisdetail/{id}', [NilaiController::class, 'detailkuis'])->name('kuis-detail')->middleware('auth');
-// Route::get('/kuisdetail/{id}', [HomeController::class, 'detail'])->name('pesan-detail')->middleware('auth');
-
+Route::get('/cetakkuishasil/{id}', [NilaiController::class, 'cetakkuis'])->name('kuis-cetak')->middleware('auth');
 Route::post('/cetaksensei', [SenseiController::class, 'cetaksensei'])->name('sensei-cetak')->middleware('auth');
 Route::post('/cetaksiswa', [SiswaController::class, 'cetaksiswa'])->name('siswa-cetak')->middleware('auth');
 Route::get('/cetakkelas', [SiswaController::class, 'cetakkelas'])->name('kelas.cetak')->middleware('auth');

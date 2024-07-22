@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('kelas_id')->references('id')->on('kelas')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('type', ['TANGO','BUNPOU','CHOKAI','DOKKAI']);
-            $table->string('judulkuis');
-            $table->string('jumlahsoal');
+            $table->string('judulkuis', 200);
+            $table->integer('jumlahsoal');
             $table->enum('status',['belum mulai','siap mulai','sedang mulai','telah selesai']);
             $table->timestamps();
         });

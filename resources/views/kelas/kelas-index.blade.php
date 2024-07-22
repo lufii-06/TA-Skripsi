@@ -4,7 +4,7 @@
     <div class="container-fluid pt-4 px-4">
         <h1 class="mb-4">Daftar Kelas</h1>
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-9">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-9 mb-2">
                 <form action="{{ route('kelas-search') }}" method="get" id="searchForm">
                     <div class="form-floating">
                         <input type="text" class="form-control bg-secondary rounded-pill" style="width: 20rem"
@@ -14,14 +14,16 @@
                     </div>
                 </form>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-3">
-                <a href="{{ route('kelas.cetak') }}" class="btn btn-primary mb-2">
-                    <i class="fas fa-download me-2"></i>
-                    Laporan Kelas</a>
-                <a href=""data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">
-                    <i class="fas fa-download me-2"></i>
-                    Laporan Materi Kelas</a>
-            </div>
+            @if ($user->status == '4')
+                <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+                    <a href="{{ route('kelas.cetak') }}" class="btn btn-primary">
+                        <i class="fas fa-download me-2"></i>
+                        Laporan Kelas</a>
+                    <a href=""data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary">
+                        <i class="fas fa-download me-2"></i>
+                        Laporan Materi Kelas</a>
+                </div>
+            @endif
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

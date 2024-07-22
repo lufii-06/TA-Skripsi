@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('name');
-            $table->string('token')->unique();
+            $table->string('name',50);
+            $table->string('token', 20)->unique();
             $table->timestamps();
         });
     }

@@ -37,6 +37,7 @@
             </div>
         </div>
     @else
+    
         <div class="pt-5 ps-5 fs-2 text-white fw-blod custom-font">星光へようこそ</div>
         <p class="ps-5">Selamat Datang di Hoshi Hikari</p>
     @endif

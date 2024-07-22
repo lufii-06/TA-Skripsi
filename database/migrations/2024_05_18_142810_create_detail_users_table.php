@@ -16,17 +16,17 @@ return new class extends Migration
         Schema::create('detail_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('user_nomor')->nullable()->unique();
+            $table->string('user_nomor', 9)->nullable()->unique();
             $table->enum('jenkel',['Laki-laki','Perempuan'])->nullable();
-            $table->string('alamat')->nullable();
-            $table->string('tempat_lahir')->nullable();
+            $table->string('alamat', 200)->nullable();
+            $table->string('tempat_lahir', 50)->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->integer('usia')->nullable();
-            $table->string('pendidikanterakhir')->nullable();
-            $table->string('jurusan')->nullable();
+            $table->string('pendidikanterakhir', 15)->nullable();
+            $table->string('jurusan', 50)->nullable();
             $table->integer('tinggibadan')->nullable();
             $table->integer('beratbadan')->nullable();
-            $table->string('nohp')->nullable();
+            $table->string('nohp', 15)->nullable();
             $table->enum('budayaJepang', ['ya', 'tidak'])->nullable();
             $table->enum('pergiKeluarNegri', ['ya', 'tidak'])->nullable();
             $table->enum('tindikTato', ['ya', 'tidak'])->nullable();
